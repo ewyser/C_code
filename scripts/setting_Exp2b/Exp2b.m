@@ -68,15 +68,11 @@ for sim=1:length(numel)
     end
     %---------------------------------------------------------------------%    
     %% DISPLAY
-    fid  = fopen('sig.dat')    ; sig     = fread(fid,typeD); fclose(fid);
-    fid  = fopen('epII.dat')   ; epII    = fread(fid,typeD); fclose(fid);   
-    fid  = fopen('xp.dat')     ; xp      = fread(fid,typeD); fclose(fid);
-    fid  = fopen('lp.dat')     ; lp      = fread(fid,typeD); fclose(fid);
-    fid  = fopen('up.dat')     ; up      = fread(fid,typeD); fclose(fid);
-    s    = reshape(sig,mpD.n,6)                  ;% stresses
-    x    = reshape(xp ,mpD.n,3)                  ;% coordinates
-    up   = reshape(up ,mpD.n,3)                  ;% displacement
-    l    = reshape(lp ,mpD.n,3)                  ;% domain lengths
+    epII = load('epII.txt')                ;% plastic strain
+    x    = load('xp.txt')                  ;% coordinates
+    up   = load('up.txt')          ;% displacement
+    l    = load('lp.txt')        ;% domain lengths
+    s    = load('sig.txt')          ;% stresses
     p0   = -((s(:,1)+s(:,2)+s(:,3))./3)./1e3     ;% pressure
     du   = sqrt(up(:,1).^2+up(:,2).^2+up(:,3).^2);% L2 norm of displacement
     run('postprocessing');

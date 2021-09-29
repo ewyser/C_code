@@ -16,9 +16,11 @@ int main(){
     int count = 0;
     start = clock();
     while(tw<t){
-        if(tw>t && count==0){
-            free(up_h);
-            zeros(up,nmp*3,1,DAT);
+        if(tw>te && count==0){
+            for(int p=0; p<3*nmp; p++){
+                up_h[p]=0.0;
+            }
+            count++;
         }
         // get adaptative dt
         dt = CFL(vp_h,dx,dy,dz,yd,tg,tw,nmp);
@@ -58,11 +60,12 @@ int main(){
     printf("\n-----------------------------------");  
     printf("\n  CPU time is %.2f s\n  after %d iterations \n  i.e., %.2f it/s\n",CPUinfo[0],it,CPUinfo[1]);
     // save data
-    save(epII,1*nmp,1,"epII.dat");
-    save(xp  ,3*nmp,1,"xp.dat"  );
-    save(lp  ,3*nmp,1,"lp.dat"  );
-    save(up  ,3*nmp,1,"up.dat"  );
-    save(sig ,6*nmp,1,"sig.dat" );
+    saveData(epII_h,"epII.txt",nmp,1);
+    saveData(lp_h  ,"lp.txt"  ,nmp,3);
+    saveData(xp_h  ,"xp.txt"  ,nmp,3);
+    saveData(up_h  ,"up.txt"  ,nmp,3);
+    saveData(sig_h ,"sig.txt" ,nmp,6);
+
 //FILE* fidw=fopen("CPUinfo.dat", "wb");
 //fwrite(CPUinfo, 4*sizeof(DAT), 1, fidw);
 //fclose(fidw);

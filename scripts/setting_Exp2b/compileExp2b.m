@@ -1,6 +1,6 @@
 %% MATLAB SCRIPT TO RUN COMPILATION FOR GPU AND CPU EXECUTABLES (.EXE)
 % delete what needs to be deleted
-delete('*.dat','*.out','*.exe','*.avi','*.mat','*.lib','*.exp');
+delete('*.dat','*.txt','*.out','*.exe','*.avi','*.mat','*.lib','*.exp');
 % set precision arithmetic
 typeD = 'double';
 % compile cpu code

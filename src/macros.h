@@ -23,7 +23,7 @@
                                        sprintf(sim##A,"_%d",sim)                                                      ;\
                                        strcat(fname##A,str##A)                                                        ;\
                                        strcat(fname##A,sim##A)                                                        ;\
-                                       strcat(fname##A,".dat")                                                        ;\
+                                       strcat(fname##A,".txt")                                                        ;\
                                        D2H (A,nx,ny,type)                                                             ;\
                                        save(A,nx,ny,fname##A)                                                         ;
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////  
