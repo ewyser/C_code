@@ -13,13 +13,18 @@ int main(){
     #include "I_O.h"
     // Solver 
     DAT DT   = 0.0;
+    int count = 0;
     start = clock();
     while(tw<t){
+        if(tw>t && count==0){
+            free(up_h);
+            zeros(up,nmp*3,1,DAT);
+        }
         // get adaptative dt
         dt = CFL(vp_h,dx,dy,dz,yd,tg,tw,nmp);
         // linear gravitational increase
         g  = getG(tw,tg);
-        // 
+        //
         topol(xp_h,p2e_h,p2n_h,e2n_h,xnmin,ynmin,znmin,dx,dy,dz,nmp,nn,nex,ney,nez,nel);
         basis(xp_h,xn_h,N_h,dNx_h,dNy_h,dNz_h,p2n_h,lp_h,dx,dy,dz,nmp,nn,no);
         accum(mn_h,pn_h,fen_h,fin_h,N_h,dNx_h,dNy_h,dNz_h,mp_h,vp_h,sig_h,vol_h,p2n_h,g,nmp,nn,no);

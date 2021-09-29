@@ -1,6 +1,5 @@
 // header macros.h
 #define PI (DAT)3.1415926535897931
-#define alpha (DAT)0.0
 #define IO (DAT)(86.0*nmp+44.0*nmp*nn+26.0*no+2.0*nel)
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #define zeros(A,nx,ny,type)      type *A##_h                                                                          ;\

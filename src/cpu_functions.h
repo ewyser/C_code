@@ -17,11 +17,6 @@ DAT CFL(DAT* vp, DAT dx, DAT dy, DAT dz, DAT yd, DAT tg, DAT tw, int nmp){
             vzpmax=fabs(vp[p+2*nmp]);
         }
     }
-/*
-    //dt = 0.5*min((DAT)dx/(DAT)(yd + vxpmax),(DAT)dy/(DAT)(yd + vypmax))      ;
-    dt = 0.5*((DAT)dx/(DAT)(yd))      ;
-    return dt;
-*/
     cmax =  (DAT)dx/(DAT)(yd + vxpmax);
     if(cmax>((DAT)dy/(DAT)(yd + vypmax))){
         cmax =  (DAT)dy/(DAT)(yd + vypmax);
@@ -58,7 +53,7 @@ void topol(DAT* xp, int* p2e, int* p2n, int* e2n, DAT xnmin, DAT ynmin, DAT znmi
     }
 }
 //-----------------------------------------------------------------------//
-void getNdN(DAT* N_dN,DAT xi,DAT lp,DAT dx){
+void NdN(DAT* N_dN,DAT xi,DAT lp,DAT dx){
     N_dN[0] = N_dN[1] = (DAT)0.0;
     if( fabs(xi)< (   lp)                     ){N_dN[0]=1.0-(4.0*(xi*xi)+((2.0*lp)*(2.0*lp)))*((DAT)1.0/((DAT)8.0*dx*lp));
                                                 N_dN[1]=(-8.0*xi)*((DAT)1.0/((DAT)8.0*dx*lp));
@@ -76,15 +71,15 @@ void getNdN(DAT* N_dN,DAT xi,DAT lp,DAT dx){
 void basis(DAT* xp, DAT* xn, DAT* N, DAT* dNx, DAT* dNy, DAT* dNz, int* p2n, DAT* lp, DAT dx, DAT dy, DAT dz, int nmp, int nn, int no){
     DAT Nx_dNx[2],Ny_dNy[2],Nz_dNz[2];
     int iD;
-    for(int p=0;p<nmp;p++){
-        for(int n=0;n<nn;n++){
+    for(int n=0;n<nn;n++){
+        for(int p=0;p<nmp;p++){
             iD  = p+n*nmp;       
             // x-basis and x-derivative
-            getNdN(Nx_dNx,(xp[p+0*nmp]-xn[p2n[iD]+0*no]),lp[p+0*nmp],dx);
+            NdN(Nx_dNx,(xp[p+0*nmp]-xn[p2n[iD]+0*no]),lp[p+0*nmp],dx);
             // y-basis and y-derivative   
-            getNdN(Ny_dNy,(xp[p+1*nmp]-xn[p2n[iD]+1*no]),lp[p+1*nmp],dy);
+            NdN(Ny_dNy,(xp[p+1*nmp]-xn[p2n[iD]+1*no]),lp[p+1*nmp],dy);
             // y-basis and y-derivative   
-            getNdN(Nz_dNz,(xp[p+2*nmp]-xn[p2n[iD]+2*no]),lp[p+2*nmp],dz);
+            NdN(Nz_dNz,(xp[p+2*nmp]-xn[p2n[iD]+2*no]),lp[p+2*nmp],dz);
             // convolution of basis
             N[iD]   = Nx_dNx[0]*Ny_dNy[0]*Nz_dNz[0];
             dNx[iD] = Nx_dNx[1]*Ny_dNy[0]*Nz_dNz[0];
@@ -95,7 +90,8 @@ void basis(DAT* xp, DAT* xn, DAT* N, DAT* dNx, DAT* dNy, DAT* dNz, int* p2n, DAT
 }
 //-----------------------------------------------------------------------//
 void accum(DAT* mn, DAT* pn, DAT* fen, DAT* fin, DAT* N, DAT* dNx, DAT* dNy, DAT* dNz, DAT* mp, DAT* vp, DAT* sig, DAT* vol, int* p2n, DAT g, int nmp, int nn, int no){
-    int iD, iDx, iDy, iDz;
+    int id,iD, iDx, iDy, iDz;
+    DAT cache;
     // initialize
     for(int n=0;n<(3*no);n++){
         if(n<no){
@@ -104,20 +100,24 @@ void accum(DAT* mn, DAT* pn, DAT* fen, DAT* fin, DAT* N, DAT* dNx, DAT* dNy, DAT
         pn [n] = fen[n] = fin[n] = 0.0;
     }
     // accumulate material point contributions on nodes
-    for(int p=0;p<nmp;p++){
-        for(int n=0;n<nn; n++){
-            iD        = (p2n[p+n*nmp]);
+    for(int n=0;n<nn; n++){
+        for(int p=0;p<nmp;p++){
+            // indexing & caching
+            id        = p+n*nmp;
+            iD        = (p2n[id]);
             iDx       = iD+0*no;
             iDy       = iD+1*no;
             iDz       = iD+2*no;
-            mn [iD ] += (N[p+n*nmp]*mp[p]);
-            pn [iDx] += (N[p+n*nmp]*mp[p]*vp[p+0*nmp]);
-            pn [iDy] += (N[p+n*nmp]*mp[p]*vp[p+1*nmp]);
-            pn [iDz] += (N[p+n*nmp]*mp[p]*vp[p+2*nmp]);
-            fen[iDz] -= (N[p+n*nmp]*mp[p]*g);
-            fin[iDx] += vol[p]*(dNx[p+n*nmp]*sig[0+6*p]+dNy[p+n*nmp]*sig[3+6*p]+dNz[p+n*nmp]*sig[5+6*p]);
-            fin[iDy] += vol[p]*(dNx[p+n*nmp]*sig[3+6*p]+dNy[p+n*nmp]*sig[1+6*p]+dNz[p+n*nmp]*sig[4+6*p]);
-            fin[iDz] += vol[p]*(dNx[p+n*nmp]*sig[5+6*p]+dNy[p+n*nmp]*sig[4+6*p]+dNz[p+n*nmp]*sig[2+6*p]);
+            cache     = N[p+n*nmp]*mp[p];
+            // accumulation
+            mn [iD ] += (cache);
+            pn [iDx] += (cache*vp[p+0*nmp]);
+            pn [iDy] += (cache*vp[p+1*nmp]);
+            pn [iDz] += (cache*vp[p+2*nmp]);
+            fen[iDz] -= (cache*g          );
+            fin[iDx] += vol[p]*(dNx[id]*sig[0+6*p]+dNy[id]*sig[3+6*p]+dNz[id]*sig[5+6*p]);
+            fin[iDy] += vol[p]*(dNx[id]*sig[3+6*p]+dNy[id]*sig[1+6*p]+dNz[id]*sig[4+6*p]);
+            fin[iDz] += vol[p]*(dNx[id]*sig[5+6*p]+dNy[id]*sig[4+6*p]+dNz[id]*sig[2+6*p]);
         }
     }
 }
@@ -146,15 +146,15 @@ void solve(DAT* fn, DAT* fen, DAT* fin, DAT* mn, DAT* an, DAT* pn, DAT* vn, int*
             vz = pz*((DAT)1.0)/((DAT)mn[n]);
             dmp= sqrt(fx*fx+fy*fy+fz*fz);
             fx = fx-D*dmp*((DAT)vx/(DAT)fabs(vx));
-            if(fabs(vx)<1E-3){
+            if(fabs(vx)<1E-7){
                 fx = (fen[iDx]-fin[iDx]);
             }
             fy = fy-D*dmp*((DAT)vy/(DAT)fabs(vy));
-            if(fabs(vy)<1E-3){
+            if(fabs(vy)<1E-7){
                 fy = (fen[iDy]-fin[iDy]);
             }
             fz = fz-D*dmp*((DAT)vz/(DAT)fabs(vz));
-            if(fabs(vz)<1E-3){
+            if(fabs(vz)<1E-7){
                 fz = (fen[iDz]-fin[iDz]);
             }
             m       = ((DAT)1.0)/((DAT)mn[n]);
@@ -170,20 +170,21 @@ void solve(DAT* fn, DAT* fen, DAT* fin, DAT* mn, DAT* an, DAT* pn, DAT* vn, int*
 //-----------------------------------------------------------------------//
 void FLIP(DAT* an, DAT* vn, DAT* N, DAT* vp, DAT* xp, int* p2n, DAT dt, int nmp, int nn, int no){
     // update material point velocity
-    int iDx,iDy,iDz;
+    int id,iDx,iDy,iDz;
     DAT dvpx,dvpy,dvpz,dxp,dyp,dzp;
     for(int p=0;p<nmp;p++){
         dvpx = dvpy = dvpz = dxp = dyp = dzp = (DAT)0.0;
         for(int n=0;n<nn;n++){
-            iDx   = p2n[p+n*nmp]+0*no   ;
-            iDy   = p2n[p+n*nmp]+1*no   ;
-            iDz   = p2n[p+n*nmp]+2*no   ;
-            dvpx += (N[p+n*nmp]*an[iDx]);
-            dvpy += (N[p+n*nmp]*an[iDy]);
-            dvpz += (N[p+n*nmp]*an[iDz]);
-            dxp  += (N[p+n*nmp]*vn[iDx]);
-            dyp  += (N[p+n*nmp]*vn[iDy]);
-            dzp  += (N[p+n*nmp]*vn[iDz]);
+            id    = p+n*nmp        ;
+            iDx   = p2n[id]+0*no   ;
+            iDy   = p2n[id]+1*no   ;
+            iDz   = p2n[id]+2*no   ;
+            dvpx += (N[id]*an[iDx]);
+            dvpy += (N[id]*an[iDy]);
+            dvpz += (N[id]*an[iDz]);
+            dxp  += (N[id]*vn[iDx]);
+            dyp  += (N[id]*vn[iDy]);
+            dzp  += (N[id]*vn[iDz]);
         }
         vp[p+0*nmp] += (dt*dvpx);
         vp[p+1*nmp] += (dt*dvpy);
@@ -195,21 +196,25 @@ void FLIP(DAT* an, DAT* vn, DAT* N, DAT* vp, DAT* xp, int* p2n, DAT dt, int nmp,
 }
 //-----------------------------------------------------------------------//
 void DM_BC(DAT* un, DAT* pn, DAT* mn, DAT* N, DAT* mp, DAT* vp, DAT* up, int* bc, DAT dt, int* p2n, int nmp, int nn, int no){
-    int iDx, iDy, iDz;
-    DAT m,duxp,duyp,duzp;
+    int id,iDx, iDy, iDz;
+    DAT cache,m,duxp,duyp,duzp;
     // initialize nodal momentum
     for(int n=0;n<(3*no);n++){
         pn[n] = un[n] = (DAT)0.0;
     }
     // accumulate material point momentum
-    for(int p=0;p<nmp;p++){
-        for(int n=0;n<nn;n++){
-            iDx      = p2n[p+n*nmp]+0*no             ;
-            iDy      = p2n[p+n*nmp]+1*no             ;
-            iDz      = p2n[p+n*nmp]+2*no             ;
-            pn[iDx] += (N[p+n*nmp]*mp[p]*vp[p+0*nmp]);
-            pn[iDy] += (N[p+n*nmp]*mp[p]*vp[p+1*nmp]);
-            pn[iDz] += (N[p+n*nmp]*mp[p]*vp[p+2*nmp]);
+    for(int n=0;n<nn;n++){
+        for(int p=0;p<nmp;p++){
+            // indexing & caching
+            id       = p+n*nmp            ;
+            iDx      = p2n[id]+0*no       ;
+            iDy      = p2n[id]+1*no       ;
+            iDz      = p2n[id]+2*no       ;
+            cache    = N[id]*mp[p]        ;
+            // accumulation
+            pn[iDx] += (cache*vp[p+0*nmp]);
+            pn[iDy] += (cache*vp[p+1*nmp]);
+            pn[iDz] += (cache*vp[p+2*nmp]);
         }
     }
     // solve for nodal incremental displacement
@@ -242,7 +247,7 @@ void DM_BC(DAT* un, DAT* pn, DAT* mn, DAT* N, DAT* mp, DAT* vp, DAT* up, int* bc
 }
 //-----------------------------------------------------------------------//   
 void strains(DAT* un, DAT* dNx, DAT* dNy, DAT* dNz, DAT* dF, DAT* eps, DAT* ome, DAT* lp, DAT* vol, int* p2n, DAT dt, int nmp, int nn, int no){
-    int iD,iDx,iDy,iDz;
+    int id,iDx,iDy,iDz;
     DAT J;
     // update material point state variables
     for(int p=0;p<nmp;p++){
@@ -250,21 +255,21 @@ void strains(DAT* un, DAT* dNx, DAT* dNy, DAT* dNz, DAT* dF, DAT* eps, DAT* ome,
         dF[0+p*9] = dF[4+p*9] = dF[8+p*9] = (DAT)1.0;
         dF[1+p*9] = dF[2+p*9] = dF[3+p*9] = dF[5+p*9] = dF[6+p*9] = dF[7+p*9] = (DAT)0.0;
         for(int n=0;n<nn;n++){
-            iD         = p+n*nmp          ;
-            iDx        = p2n[iD]+0*no     ;
-            iDy        = p2n[iD]+1*no     ;
-            iDz        = p2n[iD]+2*no     ;
-            dF[0+p*9] += (dNx[iD]*un[iDx]);
-            dF[1+p*9] += (dNy[iD]*un[iDx]);
-            dF[2+p*9] += (dNz[iD]*un[iDx]);
+            id         = p+n*nmp          ;
+            iDx        = p2n[id]+0*no     ;
+            iDy        = p2n[id]+1*no     ;
+            iDz        = p2n[id]+2*no     ;
+            dF[0+p*9] += (dNx[id]*un[iDx]);
+            dF[1+p*9] += (dNy[id]*un[iDx]);
+            dF[2+p*9] += (dNz[id]*un[iDx]);
             
-            dF[3+p*9] += (dNx[iD]*un[iDy]);
-            dF[4+p*9] += (dNy[iD]*un[iDy]);
-            dF[5+p*9] += (dNz[iD]*un[iDy]);
+            dF[3+p*9] += (dNx[id]*un[iDy]);
+            dF[4+p*9] += (dNy[id]*un[iDy]);
+            dF[5+p*9] += (dNz[id]*un[iDy]);
             
-            dF[6+p*9] += (dNx[iD]*un[iDz]);
-            dF[7+p*9] += (dNy[iD]*un[iDz]);
-            dF[8+p*9] += (dNz[iD]*un[iDz]);
+            dF[6+p*9] += (dNx[id]*un[iDz]);
+            dF[7+p*9] += (dNy[id]*un[iDz]);
+            dF[8+p*9] += (dNz[id]*un[iDz]);
         }
         // compute incremental strains
         eps[0+p*6] = dF[0+p*9]-(DAT)1.0;

@@ -5,9 +5,9 @@ delete('*.dat','*.out','*.exe','*.avi','*.mat','*.lib','*.exp');
 typeD = 'double';
 % compile cpu code
 if(ismac || isunix)
-    call = ['gcc ../../src/cpu_main.c -o cpu.out -O3 '];
+    call = ['clang ../../src/cpu_main.c -o cpu.out -O3 '];
 elseif(ispc)
-    call = ['gcc ../../src/cpu_main.c -o cpu.exe -O3 '];
+    call = ['clang ../../src/cpu_main.c -o cpu.exe -O3 '];
 else
     disp('Outer space OS');
 end
