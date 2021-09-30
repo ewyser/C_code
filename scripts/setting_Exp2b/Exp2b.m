@@ -67,29 +67,6 @@ for sim=1:length(numel)
         disp('Outer space OS');
     end
     %---------------------------------------------------------------------%    
-    %% DISPLAY
-    epII = load('epII.txt')                ;% plastic strain
-    x    = load('xp.txt')                  ;% coordinates
-    up   = load('up.txt')          ;% displacement
-    l    = load('lp.txt')        ;% domain lengths
-    s    = load('sig.txt')          ;% stresses
-    p0   = -((s(:,1)+s(:,2)+s(:,3))./3)./1e3     ;% pressure
-    du   = sqrt(up(:,1).^2+up(:,2).^2+up(:,3).^2);% L2 norm of displacement
-    run('postprocessing');
-    %% VIDEO
-    v = VideoWriter(['Exp2b_epsEqv' '.mp4'],'MPEG-4');v.FrameRate=30;v.Quality=100;open(v);
-    f = fopen('numSaved.dat'); numSaved = fread(fid,'int32'); fclose(fid);
-    for im = 1:numSaved
-        name = ['_',num2str(im),'_',num2str(1),'.dat'];
-        fid  = fopen(['epII' name])   ; epII    = fread(fid,typeD); fclose(fid);
-        fid  = fopen(['xp' name])     ; xp      = fread(fid,typeD); fclose(fid);
-        data = reshape(epII,mpD.n,1)                  ;% coordinates
-        x    = reshape(xp  ,mpD.n,3)                  ;% coordinates
-        getFig(x,data,'$\epsilon_{\mathrm{eqv}}^p$ [-]',2.5703,1:mpD.n,lz,(t-te)/numSaved*im);
-        F = getframe(gcf);
-        writeVideo(v,F.cdata);
-    end
-    close(v);
 end
 delete('*.dat','*.out','*.exe','*.mat','*.lib','*.exp');
 

@@ -263,9 +263,9 @@ void DM_BC(DAT* un, DAT* pn, DAT* mn, DAT* N, DAT* mp, DAT* vp, DAT* up, int* bc
             duyp += (N[p+n*nmp]*un[iDy]);
             duzp += (N[p+n*nmp]*un[iDz]);
         }
-        up[p+0*nmp] += (dt*duxp);
-        up[p+1*nmp] += (dt*duyp);
-        up[p+2*nmp] += (dt*duzp);
+        up[p+0*nmp] += (duxp);
+        up[p+1*nmp] += (duyp);
+        up[p+2*nmp] += (duzp);
     } 
 }
 //-----------------------------------------------------------------------//   
