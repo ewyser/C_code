@@ -17,7 +17,16 @@ up   = np.genfromtxt('up.txt'  , delimiter=',')
 sig  = np.genfromtxt('sig.txt' , delimiter=',')
 p    = -(sig[:,0]+sig[:,1]+sig[:,2])/3
 du   = up[:,0]*up[:,0]+up[:,1]*up[:,1]+up[:,2]*up[:,2]
-print(du)
+
+print('')
+print('-------------------------')
+print(' * Display CPU results * ')
+print('-------------------------')
+print('Field variable(s): type')
+print('                 : plastic strain (epII)')
+print('                 : displacement (du)')
+print('                 : pressure (p)')
+
 du   = np.sqrt(du)
 # 
 fig, ax = plt.subplots(figsize=(5,3), dpi=80)
@@ -31,6 +40,7 @@ fig.add_axes(cax)
 cb=fig.colorbar(im, cax = cax, orientation = 'horizontal',extend='max',pad=0.2,label=r'$\Delta u$ [m]')
 plt.savefig('du.png', dpi=300, bbox_inches='tight')
 plt.show()
+print('Saved fig: ' u'\u2713' ' displacement (du) ')
 
 fig, ax = plt.subplots(figsize=(5,3), dpi=80)
 im = ax.scatter(xp[:,0], xp[:,2], s=1, c=epII, alpha=1.0, cmap=cBtype)
@@ -43,6 +53,7 @@ fig.add_axes(cax)
 cb=fig.colorbar(im, cax = cax, orientation = 'horizontal',extend='max',pad=0.2,label=r'$\epsilon_{II}$ [-]')
 plt.savefig('epII.png', dpi=300, bbox_inches='tight')
 plt.show()
+print('         : ' u'\u2713' ' plastic strain (epII)')
 
 fig, ax = plt.subplots(figsize=(5,3), dpi=80)
 im = ax.scatter(xp[:,0], xp[:,2], s=1, c=p/1e3, alpha=1.0, cmap=cBtype)
@@ -55,3 +66,4 @@ fig.add_axes(cax)
 cb=fig.colorbar(im, cax = cax, orientation = 'horizontal',extend='max',pad=0.2,label=r'$p$ [kPa]')
 plt.savefig('p.png', dpi=300, bbox_inches='tight')
 plt.show()
+print('         : ' u'\u2713' ' pressure (p)')
