@@ -83,17 +83,17 @@ int main(){
             cout_u++;
         }
         // get adaptative dt
-        dt = CFL(vp_h,dx,dy,dz,yd,tg,tw,nmp);
+        dt = CFL(&meD,&mpD,yd,tg,tw);
         // linear gravitational increase
         g  = getG(tw,tg);
         //
-        topol(&meD,&mpD,xp_h);
-        basis(&mpD,xp_h,xn_h,N_h,dNx_h,dNy_h,dNz_h,lp_h,dx,dy,dz,nmp,nn,no);
-        accum(&mpD,mn_h,pn_h,fen_h,fin_h,N_h,dNx_h,dNy_h,dNz_h,mp_h,vp_h,sig_h,vol_h,g,nmp,nn,no);
+        topol(&meD,&mpD);
+        basis(&meD,&mpD);
+        accum(&mpD,mn_h,pn_h,fen_h,fin_h,mp_h,vp_h,sig_h,vol_h,g,nmp,nn,no);
         solve(fn_h,fen_h,fin_h,mn_h,an_h,pn_h,vn_h,bcs_h,dt,no);
-        FLIP(&mpD,an_h,vn_h,N_h,vp_h,xp_h,dt,nmp,nn,no);
-        DM_BC(&mpD,un_h,pn_h,mn_h,N_h,mp_h,vp_h,up_h,bcs_h,dt,nmp,nn,no);
-        strains(&mpD,un_h,dNx_h,dNy_h,dNz_h,dF_h,eps_h,ome_h,lp_h,vol_h,dt,nmp,nn,no);
+        FLIP(&mpD,an_h,vn_h,vp_h,xp_h,dt,nmp,nn,no);
+        DM_BC(&mpD,un_h,pn_h,mn_h,mp_h,vp_h,up_h,bcs_h,dt,nmp,nn,no);
+        strains(&mpD,un_h,dF_h,eps_h,ome_h,vol_h,dt,nmp,nn,no);
         elast(sig_h,eps_h,ome_h,Del_h,nmp,dt);
         if(tw>te){
             DPPlast(sig_h,cohp_h,phip_h,epII_h,Hp,cohr,Kc,Gc,psi0,nmp);
@@ -122,7 +122,7 @@ int main(){
     // save data
     saveData(epII_h,"epII.txt",nmp,1);
     saveData(lp_h  ,"lp.txt"  ,nmp,3);
-    saveData(xp_h  ,"xp.txt"  ,nmp,3);
+    saveData(mpD.xp  ,"xp.txt"  ,nmp,3);
     saveData(up_h  ,"up.txt"  ,nmp,3);
     saveData(sig_h ,"sig.txt" ,nmp,6);
 

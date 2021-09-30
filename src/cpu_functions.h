@@ -1,4 +1,12 @@
-// header fH.h : set of all functions call by the host
+// function declaration
+
+//-----------------------------------------------------------------------//
+//-----------------------------------------------------------------------//
+//-----------------------------------------------------------------------//
+//-----------------------------------------------------------------------//
+//-----------------------------------------------------------------------//
+//-----------------------------------------------------------------------//
+// function definition
 void init(mesh_t* meD,point_t* mpD){
     // mesh & material point geometric properties
         DAT  *par = (DAT*)malloc(12*sizeof(DAT));
@@ -69,7 +77,12 @@ void init(mesh_t* meD,point_t* mpD){
     } 
     */                                                                  
 }
-
+//-----------------------------------------------------------------------//
+//-----------------------------------------------------------------------//
+//-----------------------------------------------------------------------//
+//-----------------------------------------------------------------------//
+//-----------------------------------------------------------------------//
+//-----------------------------------------------------------------------//
 void saveData(DAT* data, char* filename, int dim1, int dim2){
      FILE *fp=fopen(filename,"w");
      
@@ -90,25 +103,31 @@ void saveData(DAT* data, char* filename, int dim1, int dim2){
      }
      fclose(fp);
 }
-
-
-
 //-----------------------------------------------------------------------//
-DAT CFL(DAT* vp, DAT dx, DAT dy, DAT dz, DAT yd, DAT tg, DAT tw, int nmp){
+//-----------------------------------------------------------------------//
+//-----------------------------------------------------------------------//
+//-----------------------------------------------------------------------//
+//-----------------------------------------------------------------------//
+//-----------------------------------------------------------------------//
+DAT CFL(mesh_t* meD, point_t* mpD, DAT yd, DAT tg, DAT tw){
+    int nmp = mpD->nmp;
     DAT cmax,vxpmax,vypmax,vzpmax,dt;
+    DAT dx = meD->h[0],
+        dy = meD->h[1],
+        dz = meD->h[2];
     // determine suitable dt from CFL condition
-    vxpmax = fabs(vp[0+0*nmp]);
-    vypmax = fabs(vp[0+1*nmp]);
-    vzpmax = fabs(vp[0+2*nmp]);
+    vxpmax = fabs(mpD->vp[0+0*nmp]);
+    vypmax = fabs(mpD->vp[0+1*nmp]);
+    vzpmax = fabs(mpD->vp[0+2*nmp]);
     for(int p=1;p<nmp;p++){
-        if(vxpmax<fabs(vp[p+0*nmp])){
-            vxpmax=fabs(vp[p+0*nmp]);
+        if(vxpmax<fabs(mpD->vp[p+0*nmp])){
+            vxpmax=fabs(mpD->vp[p+0*nmp]);
         }
-        if(vypmax<fabs(vp[p+1*nmp])){
-            vypmax=fabs(vp[p+1*nmp]);
+        if(vypmax<fabs(mpD->vp[p+1*nmp])){
+            vypmax=fabs(mpD->vp[p+1*nmp]);
         }
-        if(vzpmax<fabs(vp[p+2*nmp])){
-            vzpmax=fabs(vp[p+2*nmp]);
+        if(vzpmax<fabs(mpD->vp[p+2*nmp])){
+            vzpmax=fabs(mpD->vp[p+2*nmp]);
         }
     }
     cmax =  (DAT)dx/(DAT)(yd + vxpmax);
@@ -122,6 +141,11 @@ DAT CFL(DAT* vp, DAT dx, DAT dy, DAT dz, DAT yd, DAT tg, DAT tw, int nmp){
     return(dt);
 }
 //-----------------------------------------------------------------------//
+//-----------------------------------------------------------------------//
+//-----------------------------------------------------------------------//
+//-----------------------------------------------------------------------//
+//-----------------------------------------------------------------------//
+//-----------------------------------------------------------------------//
 DAT getG(DAT tw, DAT tg){
     DAT g = 0.0;
     if(tw<=tg){
@@ -133,7 +157,12 @@ DAT getG(DAT tw, DAT tg){
     return g;
 }
 //-----------------------------------------------------------------------//
-void topol(mesh_t* meD,point_t* mpD, DAT* xp){
+//-----------------------------------------------------------------------//
+//-----------------------------------------------------------------------//
+//-----------------------------------------------------------------------//
+//-----------------------------------------------------------------------//
+//-----------------------------------------------------------------------//
+void topol(mesh_t* meD,point_t* mpD){
     DAT dx    = meD->h[0];
     DAT dy    = meD->h[1];
     DAT dz    = meD->h[2];
@@ -152,13 +181,18 @@ void topol(mesh_t* meD,point_t* mpD, DAT* xp){
     DAT one_dz = ((DAT)1.0/(DAT)dz);
     // mp-to-element-to-node topology
     for(int i=0;i<nmp;i++){
-        mpD->p2e[i] = (int)((floor((xp[i+2*nmp]-znmin)*one_dz))+(nez)*floor((xp[i+0*nmp]-xnmin)*one_dx)+nez*nex*(floor((xp[i+1*nmp]-ynmin)*one_dy)));
+        mpD->p2e[i] = (int)((floor((mpD->xp[i+2*nmp]-znmin)*one_dz))+(nez)*floor((mpD->xp[i+0*nmp]-xnmin)*one_dx)+nez*nex*(floor((mpD->xp[i+1*nmp]-ynmin)*one_dy)));
         id          = mpD->p2e[i];
         for(int j=0;j<nn;j++){
             mpD->p2n[i+j*nmp] = meD->e2n[id+j*nel];
         }
     }
 }
+//-----------------------------------------------------------------------//
+//-----------------------------------------------------------------------//
+//-----------------------------------------------------------------------//
+//-----------------------------------------------------------------------//
+//-----------------------------------------------------------------------//
 //-----------------------------------------------------------------------//
 void NdN(DAT* N_dN,DAT xi,DAT lp,DAT dx){
     N_dN[0] = N_dN[1] = (DAT)0.0;
@@ -175,28 +209,41 @@ void NdN(DAT* N_dN,DAT xi,DAT lp,DAT dx){
     }
 }
 //-----------------------------------------------------------------------//
-void basis(point_t* mpD, DAT* xp, DAT* xn, DAT* N, DAT* dNx, DAT* dNy, DAT* dNz, DAT* lp, DAT dx, DAT dy, DAT dz, int nmp, int nn, int no){
+//-----------------------------------------------------------------------//
+//-----------------------------------------------------------------------//
+//-----------------------------------------------------------------------//
+//-----------------------------------------------------------------------//
+//-----------------------------------------------------------------------//
+void basis(mesh_t* meD, point_t* mpD){
     DAT Nx_dNx[2],Ny_dNy[2],Nz_dNz[2];
     int iD;
+    int nmp = mpD->nmp, 
+         nn = meD->nn, 
+         no = meD->nno[3];
     for(int n=0;n<nn;n++){
         for(int p=0;p<nmp;p++){
             iD  = p+n*nmp;       
             // x-basis and x-derivative
-            NdN(Nx_dNx,(xp[p+0*nmp]-xn[mpD->p2n[iD]+0*no]),lp[p+0*nmp],dx);
+            NdN(Nx_dNx,(mpD->xp[p+0*nmp]-meD->xn[mpD->p2n[iD]+0*no]),mpD->lp[p+0*nmp],meD->h[0]);
             // y-basis and y-derivative   
-            NdN(Ny_dNy,(xp[p+1*nmp]-xn[mpD->p2n[iD]+1*no]),lp[p+1*nmp],dy);
+            NdN(Ny_dNy,(mpD->xp[p+1*nmp]-meD->xn[mpD->p2n[iD]+1*no]),mpD->lp[p+1*nmp],meD->h[1]);
             // y-basis and y-derivative   
-            NdN(Nz_dNz,(xp[p+2*nmp]-xn[mpD->p2n[iD]+2*no]),lp[p+2*nmp],dz);
+            NdN(Nz_dNz,(mpD->xp[p+2*nmp]-meD->xn[mpD->p2n[iD]+2*no]),mpD->lp[p+2*nmp],meD->h[2]);
             // convolution of basis
-            N[iD]   = Nx_dNx[0]*Ny_dNy[0]*Nz_dNz[0];
-            dNx[iD] = Nx_dNx[1]*Ny_dNy[0]*Nz_dNz[0];
-            dNy[iD] = Nx_dNx[0]*Ny_dNy[1]*Nz_dNz[0];
-            dNz[iD] = Nx_dNx[0]*Ny_dNy[0]*Nz_dNz[1];
+            mpD->N[iD]   = Nx_dNx[0]*Ny_dNy[0]*Nz_dNz[0];
+            mpD->dNx[iD] = Nx_dNx[1]*Ny_dNy[0]*Nz_dNz[0];
+            mpD->dNy[iD] = Nx_dNx[0]*Ny_dNy[1]*Nz_dNz[0];
+            mpD->dNz[iD] = Nx_dNx[0]*Ny_dNy[0]*Nz_dNz[1];
         }
     }
 }
 //-----------------------------------------------------------------------//
-void accum(point_t* mpD, DAT* mn, DAT* pn, DAT* fen, DAT* fin, DAT* N, DAT* dNx, DAT* dNy, DAT* dNz, DAT* mp, DAT* vp, DAT* sig, DAT* vol, DAT g, int nmp, int nn, int no){
+//-----------------------------------------------------------------------//
+//-----------------------------------------------------------------------//
+//-----------------------------------------------------------------------//
+//-----------------------------------------------------------------------//
+//-----------------------------------------------------------------------//
+void accum(point_t* mpD, DAT* mn, DAT* pn, DAT* fen, DAT* fin, DAT* mp, DAT* vp, DAT* sig, DAT* vol, DAT g, int nmp, int nn, int no){
     int id,iD, iDx, iDy, iDz;
     DAT cache;
     // initialize
@@ -215,19 +262,24 @@ void accum(point_t* mpD, DAT* mn, DAT* pn, DAT* fen, DAT* fin, DAT* N, DAT* dNx,
             iDx       = iD+0*no;
             iDy       = iD+1*no;
             iDz       = iD+2*no;
-            cache     = N[p+n*nmp]*mp[p];
+            cache     = mpD->N[p+n*nmp]*mp[p];
             // accumulation
             mn [iD ] += (cache);
-            pn [iDx] += (cache*vp[p+0*nmp]);
-            pn [iDy] += (cache*vp[p+1*nmp]);
-            pn [iDz] += (cache*vp[p+2*nmp]);
+            pn [iDx] += (cache*mpD->vp[p+0*nmp]);
+            pn [iDy] += (cache*mpD->vp[p+1*nmp]);
+            pn [iDz] += (cache*mpD->vp[p+2*nmp]);
             fen[iDz] -= (cache*g          );
-            fin[iDx] += vol[p]*(dNx[id]*sig[0+6*p]+dNy[id]*sig[3+6*p]+dNz[id]*sig[5+6*p]);
-            fin[iDy] += vol[p]*(dNx[id]*sig[3+6*p]+dNy[id]*sig[1+6*p]+dNz[id]*sig[4+6*p]);
-            fin[iDz] += vol[p]*(dNx[id]*sig[5+6*p]+dNy[id]*sig[4+6*p]+dNz[id]*sig[2+6*p]);
+            fin[iDx] += vol[p]*(mpD->dNx[id]*sig[0+6*p]+mpD->dNy[id]*sig[3+6*p]+mpD->dNz[id]*sig[5+6*p]);
+            fin[iDy] += vol[p]*(mpD->dNx[id]*sig[3+6*p]+mpD->dNy[id]*sig[1+6*p]+mpD->dNz[id]*sig[4+6*p]);
+            fin[iDz] += vol[p]*(mpD->dNx[id]*sig[5+6*p]+mpD->dNy[id]*sig[4+6*p]+mpD->dNz[id]*sig[2+6*p]);
         }
     }
 }
+//-----------------------------------------------------------------------//
+//-----------------------------------------------------------------------//
+//-----------------------------------------------------------------------//
+//-----------------------------------------------------------------------//
+//-----------------------------------------------------------------------//
 //-----------------------------------------------------------------------//
 void solve(DAT* fn, DAT* fen, DAT* fin, DAT* mn, DAT* an, DAT* pn, DAT* vn, int* bc, DAT dt, int no){
     int iDx,iDy,iDz;
@@ -275,7 +327,12 @@ void solve(DAT* fn, DAT* fen, DAT* fin, DAT* mn, DAT* an, DAT* pn, DAT* vn, int*
     }
 }
 //-----------------------------------------------------------------------//
-void FLIP(point_t* mpD, DAT* an, DAT* vn, DAT* N, DAT* vp, DAT* xp, DAT dt, int nmp, int nn, int no){
+//-----------------------------------------------------------------------//
+//-----------------------------------------------------------------------//
+//-----------------------------------------------------------------------//
+//-----------------------------------------------------------------------//
+//-----------------------------------------------------------------------//
+void FLIP(point_t* mpD, DAT* an, DAT* vn, DAT* vp, DAT* xp, DAT dt, int nmp, int nn, int no){
     // update material point velocity
     int id,iDx,iDy,iDz;
     DAT dvpx,dvpy,dvpz,dxp,dyp,dzp;
@@ -286,23 +343,28 @@ void FLIP(point_t* mpD, DAT* an, DAT* vn, DAT* N, DAT* vp, DAT* xp, DAT dt, int 
             iDx   = mpD->p2n[id]+0*no   ;
             iDy   = mpD->p2n[id]+1*no   ;
             iDz   = mpD->p2n[id]+2*no   ;
-            dvpx += (N[id]*an[iDx]);
-            dvpy += (N[id]*an[iDy]);
-            dvpz += (N[id]*an[iDz]);
-            dxp  += (N[id]*vn[iDx]);
-            dyp  += (N[id]*vn[iDy]);
-            dzp  += (N[id]*vn[iDz]);
+            dvpx += (mpD->N[id]*an[iDx]);
+            dvpy += (mpD->N[id]*an[iDy]);
+            dvpz += (mpD->N[id]*an[iDz]);
+            dxp  += (mpD->N[id]*vn[iDx]);
+            dyp  += (mpD->N[id]*vn[iDy]);
+            dzp  += (mpD->N[id]*vn[iDz]);
         }
-        vp[p+0*nmp] += (dt*dvpx);
-        vp[p+1*nmp] += (dt*dvpy);
-        vp[p+2*nmp] += (dt*dvpz);
-        xp[p+0*nmp] += (dt*dxp );
-        xp[p+1*nmp] += (dt*dyp );
-        xp[p+2*nmp] += (dt*dzp );
+        mpD->vp[p+0*nmp] += (dt*dvpx);
+        mpD->vp[p+1*nmp] += (dt*dvpy);
+        mpD->vp[p+2*nmp] += (dt*dvpz);
+        mpD->xp[p+0*nmp] += (dt*dxp );
+        mpD->xp[p+1*nmp] += (dt*dyp );
+        mpD->xp[p+2*nmp] += (dt*dzp );
     }   
 }
 //-----------------------------------------------------------------------//
-void DM_BC(point_t* mpD, DAT* un, DAT* pn, DAT* mn, DAT* N, DAT* mp, DAT* vp, DAT* up, int* bc, DAT dt, int nmp, int nn, int no){
+//-----------------------------------------------------------------------//
+//-----------------------------------------------------------------------//
+//-----------------------------------------------------------------------//
+//-----------------------------------------------------------------------//
+//-----------------------------------------------------------------------//
+void DM_BC(point_t* mpD, DAT* un, DAT* pn, DAT* mn, DAT* mp, DAT* vp, DAT* up, int* bc, DAT dt, int nmp, int nn, int no){
     int id,iDx, iDy, iDz;
     DAT cache,m,duxp,duyp,duzp;
     // initialize nodal momentum
@@ -317,11 +379,11 @@ void DM_BC(point_t* mpD, DAT* un, DAT* pn, DAT* mn, DAT* N, DAT* mp, DAT* vp, DA
             iDx      = mpD->p2n[id]+0*no       ;
             iDy      = mpD->p2n[id]+1*no       ;
             iDz      = mpD->p2n[id]+2*no       ;
-            cache    = N[id]*mp[p]        ;
+            cache    = mpD->N[id]*mp[p]        ;
             // accumulation
-            pn[iDx] += (cache*vp[p+0*nmp]);
-            pn[iDy] += (cache*vp[p+1*nmp]);
-            pn[iDz] += (cache*vp[p+2*nmp]);
+            pn[iDx] += (cache*mpD->vp[p+0*nmp]);
+            pn[iDy] += (cache*mpD->vp[p+1*nmp]);
+            pn[iDz] += (cache*mpD->vp[p+2*nmp]);
         }
     }
     // solve for nodal incremental displacement
@@ -343,17 +405,22 @@ void DM_BC(point_t* mpD, DAT* un, DAT* pn, DAT* mn, DAT* N, DAT* mp, DAT* vp, DA
             iDx   = mpD->p2n[p+n*nmp]+0*no   ;
             iDy   = mpD->p2n[p+n*nmp]+1*no   ;
             iDz   = mpD->p2n[p+n*nmp]+2*no   ;
-            duxp += (N[p+n*nmp]*un[iDx]);
-            duyp += (N[p+n*nmp]*un[iDy]);
-            duzp += (N[p+n*nmp]*un[iDz]);
+            duxp += (mpD->N[p+n*nmp]*un[iDx]);
+            duyp += (mpD->N[p+n*nmp]*un[iDy]);
+            duzp += (mpD->N[p+n*nmp]*un[iDz]);
         }
-        up[p+0*nmp] += (duxp);
-        up[p+1*nmp] += (duyp);
-        up[p+2*nmp] += (duzp);
+        mpD->up[p+0*nmp] += (duxp);
+        mpD->up[p+1*nmp] += (duyp);
+        mpD->up[p+2*nmp] += (duzp);
     } 
 }
-//-----------------------------------------------------------------------//   
-void strains(point_t* mpD, DAT* un, DAT* dNx, DAT* dNy, DAT* dNz, DAT* dF, DAT* eps, DAT* ome, DAT* lp, DAT* vol, DAT dt, int nmp, int nn, int no){
+//-----------------------------------------------------------------------//
+//-----------------------------------------------------------------------//
+//-----------------------------------------------------------------------//
+//-----------------------------------------------------------------------//
+//-----------------------------------------------------------------------//
+//-----------------------------------------------------------------------//
+void strains(point_t* mpD, DAT* un, DAT* dF, DAT* eps, DAT* ome, DAT* vol, DAT dt, int nmp, int nn, int no){
     int id,iDx,iDy,iDz;
     DAT J;
     // update material point state variables
@@ -366,17 +433,17 @@ void strains(point_t* mpD, DAT* un, DAT* dNx, DAT* dNy, DAT* dNz, DAT* dF, DAT* 
             iDx        = mpD->p2n[id]+0*no     ;
             iDy        = mpD->p2n[id]+1*no     ;
             iDz        = mpD->p2n[id]+2*no     ;
-            dF[0+p*9] += (dNx[id]*un[iDx]);
-            dF[1+p*9] += (dNy[id]*un[iDx]);
-            dF[2+p*9] += (dNz[id]*un[iDx]);
+            dF[0+p*9] += (mpD->dNx[id]*un[iDx]);
+            dF[1+p*9] += (mpD->dNy[id]*un[iDx]);
+            dF[2+p*9] += (mpD->dNz[id]*un[iDx]);
             
-            dF[3+p*9] += (dNx[id]*un[iDy]);
-            dF[4+p*9] += (dNy[id]*un[iDy]);
-            dF[5+p*9] += (dNz[id]*un[iDy]);
+            dF[3+p*9] += (mpD->dNx[id]*un[iDy]);
+            dF[4+p*9] += (mpD->dNy[id]*un[iDy]);
+            dF[5+p*9] += (mpD->dNz[id]*un[iDy]);
             
-            dF[6+p*9] += (dNx[id]*un[iDz]);
-            dF[7+p*9] += (dNy[id]*un[iDz]);
-            dF[8+p*9] += (dNz[id]*un[iDz]);
+            dF[6+p*9] += (mpD->dNx[id]*un[iDz]);
+            dF[7+p*9] += (mpD->dNy[id]*un[iDz]);
+            dF[8+p*9] += (mpD->dNz[id]*un[iDz]);
         }
         // compute incremental strains
         eps[0+p*6] = dF[0+p*9]-(DAT)1.0;
@@ -398,11 +465,16 @@ void strains(point_t* mpD, DAT* un, DAT* dNx, DAT* dNy, DAT* dNz, DAT* dF, DAT* 
         else if(sizeof(DAT)==(int)4){
             J           = powf(J,(DAT)0.3333);
         }
-        lp[p+0*nmp] = J*lp[p+0*nmp];
-        lp[p+1*nmp] = J*lp[p+1*nmp];
-        lp[p+2*nmp] = J*lp[p+2*nmp];
+        mpD->lp[p+0*nmp] = J*mpD->lp[p+0*nmp];
+        mpD->lp[p+1*nmp] = J*mpD->lp[p+1*nmp];
+        mpD->lp[p+2*nmp] = J*mpD->lp[p+2*nmp];
     }
 }
+//-----------------------------------------------------------------------//
+//-----------------------------------------------------------------------//
+//-----------------------------------------------------------------------//
+//-----------------------------------------------------------------------//
+//-----------------------------------------------------------------------//
 //-----------------------------------------------------------------------//
 void elast(DAT* sig, DAT* eps, DAT* ome, DAT* Del, int nmp, DAT dt){
     DAT sxx0,syy0,szz0,sxy0,syz0,sxz0,dexx,deyy,dezz,dexy,deyz,dexz,doxy,doyz,doxz;
@@ -441,6 +513,11 @@ void elast(DAT* sig, DAT* eps, DAT* ome, DAT* Del, int nmp, DAT dt){
         sig[5+6*p] += dt*(Del[5]*dexx+Del[11]*deyy+Del[17]*dezz+Del[23]*dexy+Del[29]*deyz+Del[35]*dexz);   
     }
 }
+//-----------------------------------------------------------------------//
+//-----------------------------------------------------------------------//
+//-----------------------------------------------------------------------//
+//-----------------------------------------------------------------------//
+//-----------------------------------------------------------------------//
 //-----------------------------------------------------------------------//
 void DPPlast(DAT* sig, DAT* cohp, DAT* phip, DAT* epII, DAT Hp, DAT cohr, DAT Kc, DAT Gc, DAT psi, int nmp){
     DAT c,Pr,tensile,sxx,syy,szz,sxy,syz,sxz,devxx,devyy,devzz,devxy,devyz,devxz,tau,eta,etaB,xi,sigm,fs,ft,tauP,alpP,h,dlam,tauN,PrN,dep;
@@ -500,6 +577,11 @@ void DPPlast(DAT* sig, DAT* cohp, DAT* phip, DAT* epII, DAT Hp, DAT cohr, DAT Kc
         }  
     }
 }
+//-----------------------------------------------------------------------//
+//-----------------------------------------------------------------------//
+//-----------------------------------------------------------------------//
+//-----------------------------------------------------------------------//
+//-----------------------------------------------------------------------//
 //-----------------------------------------------------------------------//
 void volLock(point_t* mpD, DAT* pel,DAT* sig, DAT* dev, DAT* vol, int nmp, int nel){
     int iD;
