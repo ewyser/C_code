@@ -1,4 +1,10 @@
 // header I_O.h to import data and set initial conditions
+
+
+
+
+
+
 // GEOMETRY
     load(param,12,1,"param.dat",DAT);
     int nmp   = (int) param_h[0 ];
@@ -73,4 +79,9 @@
     zeros(dF  ,nmp*9    ,1           ,DAT);
     zeros(eps ,nmp*6    ,1           ,DAT);
     zeros(ome ,nmp*3    ,1           ,DAT);
-    zeros(dev ,nmp*6    ,1           ,DAT);    
+    zeros(dev ,nmp*6    ,1           ,DAT); 
+
+
+meD.pel = pel_h;
+meD.xn = xn_h;
+meD.e2n = e2n_h;

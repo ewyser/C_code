@@ -3,8 +3,7 @@
 #define IO (DAT)(86.0*nmp+44.0*nmp*nn+26.0*no+2.0*nel)
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #define zeros(A,nx,ny,type)      type *A##_h                                                                          ;\
-                                 A##_h = (type*)malloc(nx*ny*sizeof(type))                                            ;
-                                 
+                                 A##_h = (type*)malloc(nx*ny*sizeof(type))                                            ;                                 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #define load(A,nx,ny,Aname,type) type *A##_h                                                                          ;\
                                  A##_h = (type*)malloc(nx*ny*sizeof(type))                                            ;\
@@ -27,3 +26,11 @@
                                        D2H (A,nx,ny,type)                                                             ;\
                                        save(A,nx,ny,fname##A)                                                         ;
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////  
+
+
+#define load2struct(strct,A,Aname,dim,type)     strct->A = (type*)malloc(dim*sizeof(type));\
+                                                FILE* A##fid=fopen(Aname, "rb")           ;\
+                                                fread(strct->A, sizeof(type), dim, A##fid);\
+                                                fclose(A##fid)                            ;
+#define zero4struct(strct,A,dim,type)           strct->A = (type*)malloc(dim*sizeof(type));
+                                                

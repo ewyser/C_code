@@ -2,10 +2,70 @@
 #include "stdio.h"
 #include "math.h"
 #include "time.h"
+
+
+typedef struct point{
+    // POINT DEFINITION
+    // scalar-related
+        int nmp    ; // number of material point
+    // tensor-related    
+        DAT* mp    ; // mass
+        DAT* vol   ; // volume
+        DAT* cohp  ; // initial cohesion
+        DAT* phip  ; // friction angle
+        DAT* epII  ; // equivalent plastic strain
+
+        DAT* xp    ; // coordinate
+        DAT* vp    ; // velocity
+        DAT* up    ; // displacement
+        DAT* lp    ; // domain lengths
+
+        DAT* sig   ; // cauchy stress tensor
+        DAT* eps   ; // infinitesimal strain tensor
+        DAT* dev   ; // deviatoric stress tensor
+        DAT* dF    ; // increment deformation gradient tensor
+        DAT* ome   ; // spin tensor
+
+        int* p2e   ; // point-to-element topology 
+        int* p2n   ; // point-to-node topology
+
+        DAT* N     ; // basis function
+        DAT* dNx   ; // x-derivative
+        DAT* dNy   ; // y-derivative
+        DAT* dNz   ; // z-derivative
+} point_t;
+point_t mpD;
+typedef struct mesh{
+    // MESH DEFINITION
+    // element-related
+        DAT* pel   ;
+        int* e2n   ;
+        DAT  h[3]  ; //[dx,dy,dz]
+    // nodes-related
+        int  nno[4]; //[nnx ,nny ,nnz ,no]
+        int  nel[4]; //[nelx,nely,nelz,no]
+        int  nn    ; // -
+        DAT  min[3]; //[xnmin,ynmin,znmin]
+        DAT* mn    ;
+        DAT* xn    ;
+        DAT* pn    ;
+        DAT* fen   ;
+        DAT* fin   ;
+        DAT* fn    ;
+        DAT* an    ;
+        DAT* vn    ;
+        DAT* un    ;
+        DAT* bcs   ;
+} mesh_t;
+mesh_t meD;
 #include "macros.h"
 #include "cpu_functions.h"
 
 int main(){
+    init(&meD,&mpD);
+
+    printf("nel = [%d,%d,%d]",meD.nno[0],meD.nno[1],meD.nno[2]);
+
     // Timer       
     clock_t start, end;
     double CPUinfo[3];
@@ -13,32 +73,32 @@ int main(){
     #include "I_O.h"
     // Solver 
     DAT DT   = 0.0;
-    int count = 0;
+    int cout_u = 0;
     start = clock();
     while(tw<t){
-        if(tw>te && count==0){
+        if(tw>te && cout_u==0){
             for(int p=0; p<3*nmp; p++){
                 up_h[p]=0.0;
             }
-            count++;
+            cout_u++;
         }
         // get adaptative dt
         dt = CFL(vp_h,dx,dy,dz,yd,tg,tw,nmp);
         // linear gravitational increase
         g  = getG(tw,tg);
         //
-        topol(xp_h,p2e_h,p2n_h,e2n_h,xnmin,ynmin,znmin,dx,dy,dz,nmp,nn,nex,ney,nez,nel);
-        basis(xp_h,xn_h,N_h,dNx_h,dNy_h,dNz_h,p2n_h,lp_h,dx,dy,dz,nmp,nn,no);
-        accum(mn_h,pn_h,fen_h,fin_h,N_h,dNx_h,dNy_h,dNz_h,mp_h,vp_h,sig_h,vol_h,p2n_h,g,nmp,nn,no);
+        topol(&meD,&mpD,xp_h);
+        basis(&mpD,xp_h,xn_h,N_h,dNx_h,dNy_h,dNz_h,lp_h,dx,dy,dz,nmp,nn,no);
+        accum(&mpD,mn_h,pn_h,fen_h,fin_h,N_h,dNx_h,dNy_h,dNz_h,mp_h,vp_h,sig_h,vol_h,g,nmp,nn,no);
         solve(fn_h,fen_h,fin_h,mn_h,an_h,pn_h,vn_h,bcs_h,dt,no);
-        FLIP(an_h,vn_h,N_h,vp_h,xp_h,p2n_h,dt,nmp,nn,no);
-        DM_BC(un_h,pn_h,mn_h,N_h,mp_h,vp_h,up_h,bcs_h,dt,p2n_h,nmp,nn,no);
-        strains(un_h,dNx_h,dNy_h,dNz_h,dF_h,eps_h,ome_h,lp_h,vol_h,p2n_h,dt,nmp,nn,no);
+        FLIP(&mpD,an_h,vn_h,N_h,vp_h,xp_h,dt,nmp,nn,no);
+        DM_BC(&mpD,un_h,pn_h,mn_h,N_h,mp_h,vp_h,up_h,bcs_h,dt,nmp,nn,no);
+        strains(&mpD,un_h,dNx_h,dNy_h,dNz_h,dF_h,eps_h,ome_h,lp_h,vol_h,dt,nmp,nn,no);
         elast(sig_h,eps_h,ome_h,Del_h,nmp,dt);
         if(tw>te){
             DPPlast(sig_h,cohp_h,phip_h,epII_h,Hp,cohr,Kc,Gc,psi0,nmp);
         }
-        volLock(pel_h,sig_h,dev_h,vol_h,p2e_h,nmp,nel);
+        volLock(&mpD,pel_h,sig_h,dev_h,vol_h,nmp,nel);
         // update time & iteration
         tw+=dt;
         it++;
