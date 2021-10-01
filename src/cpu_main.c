@@ -55,7 +55,7 @@ typedef struct mesh{
         DAT* an    ;
         DAT* vn    ;
         DAT* un    ;
-        DAT* bcs   ;
+        int* bc    ;
 } mesh_t;
 mesh_t meD;
 #include "macros.h"
@@ -77,8 +77,8 @@ int main(){
     start = clock();
     while(tw<t){
         if(tw>te && cout_u==0){
-            for(int p=0; p<3*nmp; p++){
-                up_h[p]=0.0;
+            for(int p=0; p<3*mpD.nmp; p++){
+                mpD.up[p]=0.0;
             }
             cout_u++;
         }
@@ -89,16 +89,16 @@ int main(){
         //
         topol(&meD,&mpD);
         basis(&meD,&mpD);
-        accum(&mpD,mn_h,pn_h,fen_h,fin_h,mp_h,vp_h,sig_h,vol_h,g,nmp,nn,no);
-        solve(fn_h,fen_h,fin_h,mn_h,an_h,pn_h,vn_h,bcs_h,dt,no);
-        FLIP(&mpD,an_h,vn_h,vp_h,xp_h,dt,nmp,nn,no);
-        DM_BC(&mpD,un_h,pn_h,mn_h,mp_h,vp_h,up_h,bcs_h,dt,nmp,nn,no);
-        strains(&mpD,un_h,dF_h,eps_h,ome_h,vol_h,dt,nmp,nn,no);
-        elast(sig_h,eps_h,ome_h,Del_h,nmp,dt);
+        accum(&meD,&mpD,g);
+        solve(&meD,dt);
+        FLIP(&meD,&mpD,dt);
+        DM_BC(&meD,&mpD,dt);
+        strains(&meD,&mpD,dt);
+        elast(&mpD,Del_h,dt);
         if(tw>te){
-            DPPlast(sig_h,cohp_h,phip_h,epII_h,Hp,cohr,Kc,Gc,psi0,nmp);
+            DPPlast(&mpD,Hp,cohr,Kc,Gc,psi0);
         }
-        volLock(&mpD,pel_h,sig_h,dev_h,vol_h,nmp,nel);
+        volLock(&meD,&mpD);
         // update time & iteration
         tw+=dt;
         it++;
@@ -120,13 +120,9 @@ int main(){
     printf("\n-----------------------------------");  
     printf("\n  CPU time is %.2f s\n  after %d iterations \n  i.e., %.2f it/s\n",CPUinfo[0],it,CPUinfo[1]);
     // save data
-    saveData(epII_h,"epII.txt",nmp,1);
-    saveData(lp_h  ,"lp.txt"  ,nmp,3);
+    saveData(mpD.epII,"epII.txt",nmp,1);
+    saveData(mpD.lp  ,"lp.txt"  ,nmp,3);
     saveData(mpD.xp  ,"xp.txt"  ,nmp,3);
-    saveData(up_h  ,"up.txt"  ,nmp,3);
-    saveData(sig_h ,"sig.txt" ,nmp,6);
-
-//FILE* fidw=fopen("CPUinfo.dat", "wb");
-//fwrite(CPUinfo, 4*sizeof(DAT), 1, fidw);
-//fclose(fidw);
+    saveData(mpD.up  ,"up.txt"  ,nmp,3);
+    saveData(mpD.sig ,"sig.txt" ,nmp,6);
 }

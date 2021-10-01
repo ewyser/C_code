@@ -80,8 +80,3 @@
     zeros(eps ,nmp*6    ,1           ,DAT);
     zeros(ome ,nmp*3    ,1           ,DAT);
     zeros(dev ,nmp*6    ,1           ,DAT); 
-
-
-meD.pel = pel_h;
-meD.xn = xn_h;
-meD.e2n = e2n_h;

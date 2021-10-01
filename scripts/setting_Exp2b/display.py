@@ -6,8 +6,9 @@ from mpl_toolkits.axes_grid1 import make_axes_locatable
 import csv 
 
 # latex 
-plt.rc('text', usetex=True)
-plt.rc('font', family='serif')
+#plt.rc('text', usetex=True)
+#plt.rc('font', family='serif')
+plt.xkcd()
 # colorbar
 cBtype = 'cividis'
 # import data for post-processing 

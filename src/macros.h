@@ -34,3 +34,8 @@
                                                 fclose(A##fid)                            ;
 #define zero4struct(strct,A,dim,type)           strct->A = (type*)malloc(dim*sizeof(type));
                                                 
+
+
+
+//char greeting[] = "Hello";
+//printf("%d",(int)sizeof(greeting));
