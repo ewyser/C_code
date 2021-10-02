@@ -13,7 +13,7 @@
 clear,close,clf                                                           ;%
 opengl hardware                                                           ;%
 run('compileExp2b')
-numel = [40];
+numel = [80];
 for sim=1:length(numel)
     disp('------------------------')                                      ;%
     disp(['Run ',num2str(sim),': nel = ',num2str(numel(sim)),''])         ;%
