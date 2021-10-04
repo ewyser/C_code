@@ -60,7 +60,7 @@ for sim=1:length(numel)
     run('export');
     % CUDA CODE
     if(ismac || isunix)
-        system('./cpu.out');
+        system('chmod + ./cpu.out');
     elseif(ispc)
         system('cpu.exe');
     else
