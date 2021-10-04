@@ -1,5 +1,6 @@
 #include "math.h"
 #include "../include/type_t.h"
+#include "../include/strains.h"
 void strains(mesh_t* meD, point_t* mpD,DAT dt){
     int id,iDx,iDy,iDz;
     int nmp = mpD->nmp, 

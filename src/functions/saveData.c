@@ -2,6 +2,7 @@
 #include "stdio.h"
 #include "string.h"
 #include "math.h"
+#include "../include/saveData.h"
 void saveData(DAT* data, char* filename, int dim1, int dim2){
      FILE *fp=fopen(filename,"w");
      

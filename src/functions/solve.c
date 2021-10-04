@@ -1,5 +1,6 @@
 #include "math.h"
 #include "../include/type_t.h"
+#include "../include/solve.h"
 void solve(mesh_t* meD, DAT dt){
     int iDx,iDy,iDz;
     int nmp = mpD.nmp, 

@@ -1,0 +1,1 @@
+void init(mesh_t* meD,point_t* mpD);

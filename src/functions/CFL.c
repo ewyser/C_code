@@ -3,7 +3,7 @@
 #include "string.h"
 #include "math.h"
 #include "../include/type_t.h"
-
+#include "../include/CFL.h"
 DAT CFL(mesh_t* meD, point_t* mpD, DAT yd, DAT tg, DAT tw){
     int nmp = mpD->nmp;
     DAT cmax,vxpmax,vypmax,vzpmax,dt;

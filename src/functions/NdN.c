@@ -1,4 +1,5 @@
 #include "math.h"
+#include "../include/NdN.h"
 void NdN(DAT* N_dN,DAT xi,DAT lp,DAT dx){
     N_dN[0] = N_dN[1] = (DAT)0.0;
     if( fabs(xi)< (   lp)                     ){N_dN[0]=1.0-(4.0*(xi*xi)+((2.0*lp)*(2.0*lp)))*((DAT)1.0/((DAT)8.0*dx*lp));

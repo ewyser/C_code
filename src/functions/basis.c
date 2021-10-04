@@ -1,6 +1,7 @@
 #include "math.h"
 #include "../include/type_t.h"
-#include "../include/functions.h"
+#include "../include/basis.h"
+#include "../include/NdN.h"
 void basis(mesh_t* meD, point_t* mpD){
     DAT Nx_dNx[2],Ny_dNy[2],Nz_dNz[2];
     int iD;

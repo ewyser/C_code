@@ -1,4 +1,5 @@
 #include "math.h"
+#include "../include/getG.h"
 DAT getG(DAT tw, DAT tg){
     DAT g = 0.0;
     if(tw<=tg){

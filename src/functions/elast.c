@@ -1,4 +1,5 @@
 #include "../include/type_t.h"
+#include "../include/elast.h"
 void elast(point_t* mpD, DAT* Del, DAT dt){
     int nmp = mpD->nmp;
     DAT sxx0,syy0,szz0,sxy0,syz0,sxz0,dexx,deyy,dezz,dexy,deyz,dexz,doxy,doyz,doxz;

@@ -1,5 +1,6 @@
 #include "math.h"
 #include "../include/type_t.h"
+#include "../include/DPPlast.h"
 void DPPlast(point_t* mpD, DAT Hp, DAT cohr, DAT Kc, DAT Gc, DAT psi){
     int nmp = mpD->nmp;
     DAT c,Pr,tensile,sxx,syy,szz,sxy,syz,sxz,devxx,devyy,devzz,devxy,devyz,devxz,tau,eta,etaB,xi,sigm,fs,ft,tauP,alpP,h,dlam,tauN,PrN,dep;
