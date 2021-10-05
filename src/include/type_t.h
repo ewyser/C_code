@@ -52,3 +52,26 @@ typedef struct mesh{
         int* bc    ;
 } mesh_t;
 mesh_t meD;
+typedef struct mat{
+    // MESH DEFINITION
+    // element-related
+        DAT* pel   ;
+        int* e2n   ;
+        DAT  h[3]  ; //[dx,dy,dz]
+    // nodes-related
+        int  nno[4]; //[nnx ,nny ,nnz ,no]
+        int  nel[4]; //[nelx,nely,nelz,no]
+        int  nn    ; // -
+        DAT  min[3]; //[xnmin,ynmin,znmin]
+        DAT* mn    ;
+        DAT* xn    ;
+        DAT* pn    ;
+        DAT* fen   ;
+        DAT* fin   ;
+        DAT* fn    ;
+        DAT* an    ;
+        DAT* vn    ;
+        DAT* un    ;
+        int* bc    ;
+} mat_t;
+mat_t phys;

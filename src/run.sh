@@ -18,5 +18,12 @@ mkdir ./build
 cmake -S ./src -B ./build
 # buil a project
 cmake --build ./build
-#./build/prog
-#------------------------------------------------------------------
+
+# copy exec code to script
+path="./scripts/setting_Exp2b/" 
+cp -R ./build/ep23De_cpu ${path}ep23De_cpu
+# execute code
+cd ${path}
+./ep23De_cpu
+# display results calling python script
+python3 display.py

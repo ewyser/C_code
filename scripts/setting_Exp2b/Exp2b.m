@@ -13,7 +13,8 @@
 clear,close,clf                                                           ;%
 opengl hardware                                                           ;%
 run('compileExp2b')
-numel = [80];
+delete('*.dat','*.out','*.exe','*.mat','*.lib','*.exp');
+numel = [40];
 for sim=1:length(numel)
     disp('------------------------')                                      ;%
     disp(['Run ',num2str(sim),': nel = ',num2str(numel(sim)),''])         ;%
@@ -57,18 +58,9 @@ for sim=1:length(numel)
     Hp      = H*meD.h(1)                                                  ;%
     %---------------------------------------------------------------------%
     %% MPM DM ALGORITHM EXPLICIT SOLVER FOR INFINITESIMAL STRAIN
-    run('export');
-    % CUDA CODE
-    if(ismac || isunix)
-        system('chmod + ./cpu.out');
-    elseif(ispc)
-        system('cpu.exe');
-    else
-        disp('Outer space OS');
-    end
-    %---------------------------------------------------------------------%    
+    run('export');  
 end
-delete('*.dat','*.out','*.exe','*.mat','*.lib','*.exp');
+
 
 % writematrix([x p0],'myData.txt','Delimiter',';'); 
 % type myData.txt;
