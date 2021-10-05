@@ -5,9 +5,9 @@
 #include "../include/type_t.h"
 #include "../include/macros.h"
 #include "../include/init.h"
-void init(mesh_t* meD,point_t* mpD){
+void init(mesh_t *meD,point_t *mpD){
     // mesh & material point geometric properties
-        DAT  *par = (DAT*)malloc(12*sizeof(DAT));
+        DAT  *par = (DAT *)malloc(12*sizeof(DAT));
         FILE *fid = fopen("param.dat", "rb");                                                      ;\
                     fread(par, sizeof(DAT),12,fid); 
 

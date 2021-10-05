@@ -1,1 +1,1 @@
-void volLock(mesh_t* meD, point_t* mpD);
+void volLock(mesh_t *meD, point_t *mpD);

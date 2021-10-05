@@ -15,7 +15,7 @@ rm -r build
 mkdir ./build
 
 # generate a project buildsystem
-cmake -S ./src -B ./build
+cmake -S ./src -B ./build -DCMAKE_BUILD_TYPE=Release
 # buil a project
 cmake --build ./build
 

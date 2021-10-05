@@ -1,7 +1,7 @@
 #include "math.h"
 #include "../include/type_t.h"
 #include "../include/FLIP.h"
-void FLIP(mesh_t* meD, point_t* mpD,DAT dt){
+void FLIP(mesh_t *meD, point_t *mpD,DAT dt){
     // update material point velocity
     int id,iDx,iDy,iDz;
     int nmp = mpD->nmp, 

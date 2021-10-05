@@ -1,1 +1,1 @@
-void solve(mesh_t* meD, DAT dt);
+void solve(mesh_t *meD, point_t *mpD, DAT dt);

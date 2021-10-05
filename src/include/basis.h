@@ -1,1 +1,1 @@
-void basis(mesh_t* meD, point_t* mpD);
+void basis(mesh_t *meD, point_t *mpD);

@@ -1,9 +1,9 @@
 #include "math.h"
 #include "../include/type_t.h"
 #include "../include/solve.h"
-void solve(mesh_t* meD, DAT dt){
+void solve(mesh_t *meD, point_t *mpD, DAT dt){
     int iDx,iDy,iDz;
-    int nmp = mpD.nmp, 
+    int nmp = mpD->nmp, 
          nn = meD->nn, 
          no = meD->nno[3];
     DAT dmp,m,fx,fy,fz,px,py,pz,vx,vy,vz;

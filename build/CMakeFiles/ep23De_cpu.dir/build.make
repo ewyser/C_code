@@ -73,15 +73,15 @@ CMakeFiles/ep23De_cpu.dir/main.c.o: CMakeFiles/ep23De_cpu.dir/flags.make
 CMakeFiles/ep23De_cpu.dir/main.c.o: /Users/manuwyser/Dropbox/PhD_Thesis/git_local/work_mpm/C_code/src/main.c
 CMakeFiles/ep23De_cpu.dir/main.c.o: CMakeFiles/ep23De_cpu.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/manuwyser/Dropbox/PhD_Thesis/git_local/work_mpm/C_code/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/ep23De_cpu.dir/main.c.o"
-	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/ep23De_cpu.dir/main.c.o -MF CMakeFiles/ep23De_cpu.dir/main.c.o.d -o CMakeFiles/ep23De_cpu.dir/main.c.o -c /Users/manuwyser/Dropbox/PhD_Thesis/git_local/work_mpm/C_code/src/main.c
+	/usr/bin/gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/ep23De_cpu.dir/main.c.o -MF CMakeFiles/ep23De_cpu.dir/main.c.o.d -o CMakeFiles/ep23De_cpu.dir/main.c.o -c /Users/manuwyser/Dropbox/PhD_Thesis/git_local/work_mpm/C_code/src/main.c
 
 CMakeFiles/ep23De_cpu.dir/main.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/ep23De_cpu.dir/main.c.i"
-	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/manuwyser/Dropbox/PhD_Thesis/git_local/work_mpm/C_code/src/main.c > CMakeFiles/ep23De_cpu.dir/main.c.i
+	/usr/bin/gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/manuwyser/Dropbox/PhD_Thesis/git_local/work_mpm/C_code/src/main.c > CMakeFiles/ep23De_cpu.dir/main.c.i
 
 CMakeFiles/ep23De_cpu.dir/main.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/ep23De_cpu.dir/main.c.s"
-	/Library/Developer/CommandLineTools/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/manuwyser/Dropbox/PhD_Thesis/git_local/work_mpm/C_code/src/main.c -o CMakeFiles/ep23De_cpu.dir/main.c.s
+	/usr/bin/gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/manuwyser/Dropbox/PhD_Thesis/git_local/work_mpm/C_code/src/main.c -o CMakeFiles/ep23De_cpu.dir/main.c.s
 
 # Object files for target ep23De_cpu
 ep23De_cpu_OBJECTS = \

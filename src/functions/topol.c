@@ -1,7 +1,7 @@
 #include "math.h"
 #include "../include/type_t.h"
 #include "../include/topol.h"
-void topol(mesh_t* meD,point_t* mpD){
+void topol(mesh_t *meD, point_t *mpD){
     DAT dx    = meD->h[0];
     DAT dy    = meD->h[1];
     DAT dz    = meD->h[2];

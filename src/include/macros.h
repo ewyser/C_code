@@ -8,24 +8,24 @@
 //----------------------------------------------------------// 
 #define zeros(A,nx,ny,type)                                 ;\
     type *A##_h                                             ;\
-    A##_h = (type*)malloc(nx*ny*sizeof(type))               ;\
+    A##_h = (type *)malloc(nx*ny*sizeof(type))              ;\
 //----------------------------------------------------------//
 #define load(A,nx,ny,Aname,type)                            ;\
     type *A##_h                                             ;\
-    A##_h = (type*)malloc(nx*ny*sizeof(type))               ;\
+    A##_h = (type *)malloc(nx*ny*sizeof(type))              ;\
     FILE* A##fid=fopen(Aname, "rb")                         ;\
     fread(A##_h, sizeof(type), nx*ny, A##fid)               ;\
     fclose(A##fid)                                          ;\
 //----------------------------------------------------------//
 #define load_t(strct,A,Aname,dim,type){                     ;\
-    strct->A = (type*)malloc(dim*sizeof(type))              ;\
+    strct->A = (type *)malloc(dim*sizeof(type))             ;\
     FILE* A##fid=fopen(Aname, "rb")                         ;\
     fread(strct->A, sizeof(type), dim, A##fid)              ;\
     fclose(A##fid)                                          ;\
 }                                                           ;
 //----------------------------------------------------------//
 #define zero_t(strct,A,dim,type){                           ;\
-    strct->A = (type*)malloc(dim*sizeof(type))              ;\
+    strct->A = (type *)malloc(dim*sizeof(type))              ;\
 }                                                           ;          
 //----------------------------------------------------------//
 #define varSave(A,dim1,dim2,name,it){                       ;\

@@ -1,1 +1,1 @@
-void strains(mesh_t* meD, point_t* mpD,DAT dt);
+void strains(mesh_t *meD, point_t *mpD,DAT dt);

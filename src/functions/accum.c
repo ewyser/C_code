@@ -1,7 +1,7 @@
 #include "math.h"
 #include "../include/type_t.h"
 #include "../include/accum.h"
-void accum(mesh_t* meD,point_t* mpD,DAT g){
+void accum(mesh_t *meD, point_t *mpD,DAT g){
     int id,iD, iDx, iDy, iDz;
     int nmp = mpD->nmp, 
          nn = meD->nn, 

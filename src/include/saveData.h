@@ -1,1 +1,1 @@
-void saveData(DAT* data, char* filename, int dim1, int dim2);
+void saveData(DAT *data, char *filename, int dim1, int dim2);

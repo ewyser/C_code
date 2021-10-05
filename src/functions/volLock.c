@@ -1,6 +1,6 @@
 #include "../include/type_t.h"
 #include "../include/volLock.h"
-void volLock(mesh_t* meD, point_t* mpD){
+void volLock(mesh_t *meD, point_t *mpD){
     int iD;
     int nmp = mpD->nmp,
         nel = meD->nel[3];
