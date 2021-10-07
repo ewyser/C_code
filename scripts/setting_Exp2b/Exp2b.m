@@ -14,7 +14,7 @@ clear,close,clf                                                           ;%
 opengl hardware                                                           ;%
 run('compileExp2b')
 delete('*.dat','*.out','*.exe','*.mat','*.lib','*.exp');
-numel = [80];
+numel = [40];
 for sim=1:length(numel)
     disp('------------------------')                                      ;%
     disp(['Run ',num2str(sim),': nel = ',num2str(numel(sim)),''])         ;%

@@ -31,7 +31,9 @@ nel  = 40
 lx   = 64.1584                                                     
 ly   = lx/4                                                        
 lz   = 12.80 
-D    = init.mesh(nel,lx,ly,lz,ni) #nn,nno,h,min(x),min(y),min(z),nnx,nny,nnz
-
-
+dx   = init.mesh(nel,lx,ly,lz,ni,rho0,coh0,cohr,phi0,phir) #nn,nno,h,min(x),min(y),min(z),nnx,nny,nnz
+Hp   = H*dx
+p    = np.array([g,rho0,psi0,nu,E,Kc,Gc,cohr,Hp,t,te,tg])
+# export physics
+np.savetxt("phys.dat",p,fmt="%f",delimiter="\n")
 

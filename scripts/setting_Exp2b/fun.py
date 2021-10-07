@@ -81,7 +81,7 @@ def topol(nnx,nny,nnz,nelx,nely,nelz,nn):
 				iel+=1
 	return(g_num)
 
-def mesh(nelx,lx,ly,lz0,ni):
+def mesh(nelx,lx,ly,lz0,ni,rho0,coh0,cohr,phi0,phir):
 	nely = nelx
 	nelz = nely
 	lz   = math.ceil(lz0)
@@ -176,13 +176,34 @@ def mesh(nelx,lx,ly,lz0,ni):
 	ax.scatter3D(xp, yp, zp, c=zp, cmap='Reds');
 	plt.show()
 	"""
+	nmp = xp.size
+	lp  = np.ones((nmp,3),dtype=float)*(h[0]/ni)/2
+	vp  = np.ones((nmp,1),dtype=float)*(h[0]/ni*h[0]/ni*h[0]/ni)
+	mp  = np.ones((nmp,1),dtype=float)*(h[0]/ni*h[0]/ni*h[0]/ni)*rho0
+	cohp= np.ones((nmp,1),dtype=float)*coh0
+	phip= np.ones((nmp,1),dtype=float)*phi0
+	p   = np.where(zp<2*wl) 
+
+	phip[p,0] = phir
+
 
 	# ---------------------------------------------------------------- #
 	# export
+	# scalars
+	p = np.array([nmp,nn,nno,h[0],h[1],h[2],min(xn),min(yn),min(zn),nnx,nny,nnz])
+	np.savetxt("param.dat", p.flatten('F')                                   , fmt="%f", delimiter="\n")
 	# mesh-related quantities
-	np.savetxt("xn.txt" , np.hstack([xn,yn,zn]).flatten('F'), fmt="%f", delimiter="\n")
-	np.savetxt("bcs.txt", BC.flatten('F')                , fmt="%d", delimiter="\n")
-	np.savetxt("e2n.txt", e2n.flatten('F')               , fmt="%d", delimiter="\n")
+	np.savetxt("xn.dat"   , np.hstack([xn,yn,zn]).flatten('F')               , fmt="%f", delimiter="\n")
+	np.savetxt("bcs.dat"  , BC.flatten('F')                                  , fmt="%d", delimiter="\n")
+	np.savetxt("e2n.dat"  , e2n.flatten('F')                                 , fmt="%d", delimiter="\n")
 	# point-related quantities
-	return(print("init. & export finished"))
+	np.savetxt("xp.dat"   , np.hstack([xp,yp,zp]).flatten('F')               , fmt="%f", delimiter="\n")
+	np.savetxt("lp.dat"   , np.hstack([lp[:,0],lp[:,1],lp[:,2]]).flatten('F'), fmt="%f", delimiter="\n")
+	np.savetxt("vol.dat"  , vp                                               , fmt="%f", delimiter="\n")
+	np.savetxt("mp.dat"   , mp                                               , fmt="%f", delimiter="\n")
+	np.savetxt("cohp.dat" , cohp                                             , fmt="%f", delimiter="\n")
+	np.savetxt("phip.dat" , phip                                             , fmt="%f", delimiter="\n")
+	
+	print("init & export: done")
+	return(dx)
 
