@@ -1,0 +1,1 @@
+DAT* loadFloat(int size, char* filename);

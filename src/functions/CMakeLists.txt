@@ -13,6 +13,8 @@ add_library(functions 	accum.c
  			strains.c
 			topol.c
  			volLock.c
+			loadInt.c
+			loadFloat.c
            )
 
 

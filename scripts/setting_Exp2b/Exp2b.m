@@ -12,9 +12,10 @@
 % -------------------------------------------------------------------------%
 clear,close,clf                                                           ;%
 opengl hardware                                                           ;%
-run('compileExp2b')
-delete('*.dat','*.out','*.exe','*.mat','*.lib','*.exp');
-numel = [40];
+delete('*.dat','*.txt','*.exe','*.avi','*.mat','*.lib','*.exp');
+% set precision arithmetic
+typeD = 'double';
+numel = [80];
 for sim=1:length(numel)
     disp('------------------------')                                      ;%
     disp(['Run ',num2str(sim),': nel = ',num2str(numel(sim)),''])         ;%

@@ -35,5 +35,5 @@ dx   = init.mesh(nel,lx,ly,lz,ni,rho0,coh0,cohr,phi0,phir) #nn,nno,h,min(x),min(
 Hp   = H*dx
 p    = np.array([g,rho0,psi0,nu,E,Kc,Gc,cohr,Hp,t,te,tg])
 # export physics
-np.savetxt("phys.dat",p,fmt="%f",delimiter="\n")
+np.savetxt("phys.txt",p,fmt="%f",delimiter="\n")
 

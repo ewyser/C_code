@@ -1,0 +1,1 @@
+int* loadInt(int size, char* filename);

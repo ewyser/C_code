@@ -5,12 +5,13 @@
 #include "../include/type_t.h"
 #include "../include/macros.h"
 #include "../include/init.h"
+#include "../include/loadInt.h"
+#include "../include/loadFloat.h"
+
 void init(mesh_t *meD,point_t *mpD){
     // mesh & material point geometric properties
-        DAT  *par = (DAT *)malloc(12*sizeof(DAT));
-        FILE *fid = fopen("param.dat", "rb");                                                      ;\
-                    fread(par, sizeof(DAT),12,fid); 
-
+        DAT *par   = malloc(12*sizeof(DAT));
+        par        = loadFloat(12,"param.txt");
         mpD->nmp   = (int) par[0 ];
         meD->nn    = (int) par[1 ];
         meD->nno[3]= (int) par[2 ];
@@ -29,49 +30,48 @@ void init(mesh_t *meD,point_t *mpD){
         meD->nel[2]= meD->nno[2]-1;
         meD->nel[3]= meD->nel[0]*meD->nel[1]*meD->nel[2];  
         free(par);
-        fclose(fid);
     // mesh
-        zero_t(meD,pel            ,2*meD->nno[3]      ,DAT);    
-        load_t(meD,e2n ,"e2n.dat" ,meD->nn*meD->nel[3],int);
-        zero_t(meD,mn             ,  meD->nno[3]      ,DAT);
-        load_t(meD,xn  ,"xn.dat"  ,3*meD->nno[3]      ,DAT);
-        zero_t(meD,pn             ,3*meD->nno[3]      ,DAT);
-        zero_t(meD,pn             ,3*meD->nno[3]      ,DAT);
-        zero_t(meD,fen            ,3*meD->nno[3]      ,DAT);
-        zero_t(meD,fin            ,3*meD->nno[3]      ,DAT);
-        zero_t(meD,fn             ,3*meD->nno[3]      ,DAT);
-        zero_t(meD,an             ,3*meD->nno[3]      ,DAT);
-        zero_t(meD,vn             ,3*meD->nno[3]      ,DAT);
-        zero_t(meD,un             ,3*meD->nno[3]      ,DAT);
-        load_t(meD,bc  ,"bcs.dat" ,3*meD->nno[3]      ,int);
+        zero_t(meD,pel ,2*meD->nno[3]   ,DAT);    
+        zero_t(meD,mn  ,1*meD->nno[3]   ,DAT);
+        zero_t(meD,pn  ,3*meD->nno[3]   ,DAT);
+        zero_t(meD,pn  ,3*meD->nno[3]   ,DAT);
+        zero_t(meD,fen ,3*meD->nno[3]   ,DAT);
+        zero_t(meD,fin ,3*meD->nno[3]   ,DAT);
+        zero_t(meD,fn  ,3*meD->nno[3]   ,DAT);
+        zero_t(meD,an  ,3*meD->nno[3]   ,DAT);
+        zero_t(meD,vn  ,3*meD->nno[3]   ,DAT);
+        zero_t(meD,un  ,3*meD->nno[3]   ,DAT);
+        meD->e2n = malloc((meD->nn*meD->nel[3])*sizeof(int));
+        meD->e2n = loadInt((meD->nn*meD->nel[3]),"e2n.txt");
+        meD->bc  = malloc((3*meD->nno[3])*sizeof(int));
+        meD->bc  = loadInt(3*meD->nno[3],"bcs.txt");
+        meD->xn  = malloc((3*meD->nno[3])*sizeof(DAT));
+        meD->xn  = loadFloat(3*meD->nno[3],"xn.txt");
     // material point
-        load_t(mpD,mp  ,"mp.dat"  ,mpD->nmp           ,DAT);
-        load_t(mpD,vol ,"vol.dat" ,mpD->nmp           ,DAT);
-        load_t(mpD,cohp,"cohp.dat",mpD->nmp           ,DAT);
-        load_t(mpD,phip,"phip.dat",mpD->nmp           ,DAT);
-        zero_t(mpD,epII           ,mpD->nmp           ,DAT);
-
-        load_t(mpD,xp  ,"xp.dat"  ,3*mpD->nmp         ,DAT);
-        zero_t(mpD,vp             ,3*mpD->nmp         ,DAT);    
-        zero_t(mpD,up             ,3*mpD->nmp         ,DAT);    
-        load_t(mpD,lp  ,"lp.dat"  ,3*mpD->nmp         ,DAT);   
-
-        zero_t(mpD,sig            ,6*mpD->nmp         ,DAT);
-        zero_t(mpD,eps            ,6*mpD->nmp         ,DAT);
-        zero_t(mpD,dev            ,6*mpD->nmp         ,DAT);
-        zero_t(mpD,dF             ,9*mpD->nmp,         DAT);
-        zero_t(mpD,ome            ,3*mpD->nmp         ,DAT);
-
-        zero_t(mpD,p2e            ,        mpD->nmp   ,int);
-        zero_t(mpD,p2n            ,meD->nn*mpD->nmp   ,int);   
-
-        zero_t(mpD,N              ,meD->nn*mpD->nmp   ,DAT);
-        zero_t(mpD,dNx            ,meD->nn*mpD->nmp   ,DAT);
-        zero_t(mpD,dNy            ,meD->nn*mpD->nmp   ,DAT);
-        zero_t(mpD,dNz            ,meD->nn*mpD->nmp   ,DAT);         
-    /*
-    for(int k=0; k<nmp; k++){
-        printf("\n xp = [%f,%f,%f]",mpD->xp[k+0*nmp],mpD->xp[k+1*mpD->nmp],mpD->xp[k+2*mpD->nmp]);
-    } 
-    */                                                                  
+        zero_t(mpD,epII,mpD->nmp        ,DAT);
+        zero_t(mpD,vp  ,3*mpD->nmp      ,DAT);    
+        zero_t(mpD,up  ,3*mpD->nmp      ,DAT);     
+        zero_t(mpD,sig ,6*mpD->nmp      ,DAT);
+        zero_t(mpD,eps ,6*mpD->nmp      ,DAT);
+        zero_t(mpD,dev ,6*mpD->nmp      ,DAT);
+        zero_t(mpD,dF  ,9*mpD->nmp      ,DAT);
+        zero_t(mpD,ome ,3*mpD->nmp      ,DAT);
+        zero_t(mpD,p2e ,1*mpD->nmp      ,int);
+        zero_t(mpD,p2n ,meD->nn*mpD->nmp,int);   
+        zero_t(mpD,N   ,meD->nn*mpD->nmp,DAT);
+        zero_t(mpD,dNx ,meD->nn*mpD->nmp,DAT);
+        zero_t(mpD,dNy ,meD->nn*mpD->nmp,DAT);
+        zero_t(mpD,dNz ,meD->nn*mpD->nmp,DAT);         
+        mpD->mp  = malloc(mpD->nmp*sizeof(DAT));
+        mpD->mp  = loadFloat(mpD->nmp,"mp.txt");
+        mpD->vol = malloc(mpD->nmp*sizeof(DAT));
+        mpD->vol = loadFloat(mpD->nmp,"vol.txt");
+        mpD->cohp= malloc(mpD->nmp*sizeof(DAT));
+        mpD->cohp= loadFloat(mpD->nmp,"cohp.txt");
+        mpD->phip= malloc(mpD->nmp*sizeof(DAT));
+        mpD->phip= loadFloat(mpD->nmp,"phip.txt");
+        mpD->xp  = malloc(3*mpD->nmp*sizeof(DAT));
+        mpD->xp  = loadFloat(3*mpD->nmp,"xp.txt");
+        mpD->lp  = malloc(3*mpD->nmp*sizeof(DAT));
+        mpD->lp  = loadFloat(3*mpD->nmp,"lp.txt");
 }

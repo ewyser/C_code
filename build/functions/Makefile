@@ -370,6 +370,54 @@ init.c.s:
 	cd /Users/manuwyser/Dropbox/PhD_Thesis/git_local/work_mpm/C_code/build && $(MAKE) $(MAKESILENT) -f functions/CMakeFiles/functions.dir/build.make functions/CMakeFiles/functions.dir/init.c.s
 .PHONY : init.c.s
 
+loadFloat.o: loadFloat.c.o
+.PHONY : loadFloat.o
+
+# target to build an object file
+loadFloat.c.o:
+	cd /Users/manuwyser/Dropbox/PhD_Thesis/git_local/work_mpm/C_code/build && $(MAKE) $(MAKESILENT) -f functions/CMakeFiles/functions.dir/build.make functions/CMakeFiles/functions.dir/loadFloat.c.o
+.PHONY : loadFloat.c.o
+
+loadFloat.i: loadFloat.c.i
+.PHONY : loadFloat.i
+
+# target to preprocess a source file
+loadFloat.c.i:
+	cd /Users/manuwyser/Dropbox/PhD_Thesis/git_local/work_mpm/C_code/build && $(MAKE) $(MAKESILENT) -f functions/CMakeFiles/functions.dir/build.make functions/CMakeFiles/functions.dir/loadFloat.c.i
+.PHONY : loadFloat.c.i
+
+loadFloat.s: loadFloat.c.s
+.PHONY : loadFloat.s
+
+# target to generate assembly for a file
+loadFloat.c.s:
+	cd /Users/manuwyser/Dropbox/PhD_Thesis/git_local/work_mpm/C_code/build && $(MAKE) $(MAKESILENT) -f functions/CMakeFiles/functions.dir/build.make functions/CMakeFiles/functions.dir/loadFloat.c.s
+.PHONY : loadFloat.c.s
+
+loadInt.o: loadInt.c.o
+.PHONY : loadInt.o
+
+# target to build an object file
+loadInt.c.o:
+	cd /Users/manuwyser/Dropbox/PhD_Thesis/git_local/work_mpm/C_code/build && $(MAKE) $(MAKESILENT) -f functions/CMakeFiles/functions.dir/build.make functions/CMakeFiles/functions.dir/loadInt.c.o
+.PHONY : loadInt.c.o
+
+loadInt.i: loadInt.c.i
+.PHONY : loadInt.i
+
+# target to preprocess a source file
+loadInt.c.i:
+	cd /Users/manuwyser/Dropbox/PhD_Thesis/git_local/work_mpm/C_code/build && $(MAKE) $(MAKESILENT) -f functions/CMakeFiles/functions.dir/build.make functions/CMakeFiles/functions.dir/loadInt.c.i
+.PHONY : loadInt.c.i
+
+loadInt.s: loadInt.c.s
+.PHONY : loadInt.s
+
+# target to generate assembly for a file
+loadInt.c.s:
+	cd /Users/manuwyser/Dropbox/PhD_Thesis/git_local/work_mpm/C_code/build && $(MAKE) $(MAKESILENT) -f functions/CMakeFiles/functions.dir/build.make functions/CMakeFiles/functions.dir/loadInt.c.s
+.PHONY : loadInt.c.s
+
 saveData.o: saveData.c.o
 .PHONY : saveData.o
 
@@ -529,6 +577,12 @@ help:
 	@echo "... init.o"
 	@echo "... init.i"
 	@echo "... init.s"
+	@echo "... loadFloat.o"
+	@echo "... loadFloat.i"
+	@echo "... loadFloat.s"
+	@echo "... loadInt.o"
+	@echo "... loadInt.i"
+	@echo "... loadInt.s"
 	@echo "... saveData.o"
 	@echo "... saveData.i"
 	@echo "... saveData.s"

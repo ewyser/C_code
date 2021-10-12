@@ -1,17 +1,18 @@
 // PHYSICS
-    load(phys,12,1,"phys.dat",DAT);
-    DAT g     = (DAT) phys_h[0 ];
-    DAT rho0  = (DAT) phys_h[1 ];
-    DAT psi0  = (DAT) phys_h[2 ];
-    DAT nu    = (DAT) phys_h[3 ];
-    DAT E     = (DAT) phys_h[4 ];
-    DAT Kc    = (DAT) phys_h[5 ];
-    DAT Gc    = (DAT) phys_h[6 ];
-    DAT cohr  = (DAT) phys_h[7 ];
-    DAT Hp    = (DAT) phys_h[8 ];
-    DAT t     = (DAT) phys_h[9 ];
-    DAT te    = (DAT) phys_h[10];
-    DAT tg    = (DAT) phys_h[11];
+    DAT *phys = malloc(12*sizeof(DAT));
+         phys = loadFloat(12,"phys.txt");
+    DAT g     = (DAT) phys[0 ];
+    DAT rho0  = (DAT) phys[1 ];
+    DAT psi0  = (DAT) phys[2 ];
+    DAT nu    = (DAT) phys[3 ];
+    DAT E     = (DAT) phys[4 ];
+    DAT Kc    = (DAT) phys[5 ];
+    DAT Gc    = (DAT) phys[6 ];
+    DAT cohr  = (DAT) phys[7 ];
+    DAT Hp    = (DAT) phys[8 ];
+    DAT t     = (DAT) phys[9 ];
+    DAT te    = (DAT) phys[10];
+    DAT tg    = (DAT) phys[11];
     DAT dt    = (DAT) 0.0;
     DAT yd    = (DAT) sqrt((Kc+1.333*Gc)*(DAT)1.0/(DAT)rho0);
     DAT tw    = (DAT) 0.0;
@@ -57,4 +58,5 @@
         Del[32] = 0.0          ; 
         Del[33] = 0.0          ;
         Del[34] = 0.0          ;
-        Del[35] = Gc           ;        
+        Del[35] = Gc           ;
+    free(phys);        

@@ -19,7 +19,7 @@ int main(){
     int nmp = mpD->nmp, 
          nn = meD->nn,
          nel= meD->nel[3], 
-         no = meD->nno[3];         
+         no = meD->nno[3];   
     printf("\n nel = [%d,%d,%d]",meD->nel[0],meD->nel[1],meD->nel[2]);
     printf("\n nno = [%d,%d,%d]",meD->nno[0],meD->nno[1],meD->nno[2]);
     printf("\n nmp = %d",mpD->nmp);
@@ -62,6 +62,7 @@ int main(){
             printf("\n (%.2f %%); it = %d [-], t = %.2f [s]",100*tw/t,it, tw);
         }
     } 
+    
     end = clock();
     CPUinfo[0] = (double)(((double)(end-start))/CLOCKS_PER_SEC);
     CPUinfo[1] = it/CPUinfo[0];

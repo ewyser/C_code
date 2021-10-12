@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 def topol(nnx,nny,nnz,nelx,nely,nelz,nn):
 	nno = nnx*nny*nnz
 	nel = nelx*nely*nelz
-	gnumbers = (np.arange(1,nno+1,1,dtype=int)).reshape((nnz,nnx,nny),order='F')	
+	gnumbers = (np.arange(0,nno,1,dtype=int)).reshape((nnz,nnx,nny),order='F')	
 	for k in range(nny):
 		gnumbers[:,:,k]=np.flipud(gnumbers[:,:,k])
 	g_num  = np.zeros((nel,nn),dtype=int)
@@ -191,18 +191,18 @@ def mesh(nelx,lx,ly,lz0,ni,rho0,coh0,cohr,phi0,phir):
 	# export
 	# scalars
 	p = np.array([nmp,nn,nno,h[0],h[1],h[2],min(xn),min(yn),min(zn),nnx,nny,nnz])
-	np.savetxt("param.dat", p.flatten('F')                                   , fmt="%f", delimiter="\n")
+	np.savetxt("param.txt", p.flatten('F')                                   , fmt="%f", delimiter="\n")
 	# mesh-related quantities
-	np.savetxt("xn.dat"   , np.hstack([xn,yn,zn]).flatten('F')               , fmt="%f", delimiter="\n")
-	np.savetxt("bcs.dat"  , BC.flatten('F')                                  , fmt="%d", delimiter="\n")
-	np.savetxt("e2n.dat"  , e2n.flatten('F')                                 , fmt="%d", delimiter="\n")
+	np.savetxt("xn.txt"   , np.hstack([xn,yn,zn]).flatten('F')               , fmt="%f", delimiter="\n")
+	np.savetxt("bcs.txt"  , BC.flatten('F')                                  , fmt="%d", delimiter="\n")
+	np.savetxt("e2n.txt"  , e2n.flatten('F')                                 , fmt="%d", delimiter="\n")
 	# point-related quantities
-	np.savetxt("xp.dat"   , np.hstack([xp,yp,zp]).flatten('F')               , fmt="%f", delimiter="\n")
-	np.savetxt("lp.dat"   , np.hstack([lp[:,0],lp[:,1],lp[:,2]]).flatten('F'), fmt="%f", delimiter="\n")
-	np.savetxt("vol.dat"  , vp                                               , fmt="%f", delimiter="\n")
-	np.savetxt("mp.dat"   , mp                                               , fmt="%f", delimiter="\n")
-	np.savetxt("cohp.dat" , cohp                                             , fmt="%f", delimiter="\n")
-	np.savetxt("phip.dat" , phip                                             , fmt="%f", delimiter="\n")
+	np.savetxt("xp.txt"   , np.hstack([xp,yp,zp]).flatten('F')               , fmt="%f", delimiter="\n")
+	np.savetxt("lp.txt"   , np.hstack([lp[:,0],lp[:,1],lp[:,2]]).flatten('F'), fmt="%f", delimiter="\n")
+	np.savetxt("vol.txt"  , vp                                               , fmt="%f", delimiter="\n")
+	np.savetxt("mp.txt"   , mp                                               , fmt="%f", delimiter="\n")
+	np.savetxt("cohp.txt" , cohp                                             , fmt="%f", delimiter="\n")
+	np.savetxt("phip.txt" , phip                                             , fmt="%f", delimiter="\n")
 	
 	print("init & export: done")
 	return(dx)
