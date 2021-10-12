@@ -5,16 +5,25 @@ DAT* loadFloat(int size, char* filename){
         DAT *ptr=malloc(size*sizeof(DAT));
         FILE  *fid = fopen(filename, "r");
         if(fid==NULL){
-            printf("\n! %s not found -> program killed !\n",filename);
+            printf("\n importing: %s not found ...",filename);
+            printf("\n          |-> program killed");
             fclose(fid);
+            printf("\n press any key to continue...");  
+            getchar();   
             exit(1);
         }
         // read data from file & store value at &par
+        printf("\n importing: %s",filename);
         for(int i=0;i<size;i++){
-            fscanf(fid,"%lf" ,&ptr[i]);
+            if(sizeof(DAT)==4){
+                fscanf(fid,"%f",&ptr[i]);    
+            }
+            else if(sizeof(DAT)==8){
+                fscanf(fid,"%lf",&ptr[i]);
+            }
+            
         }
         // clear & free
         fclose(fid);
         return(ptr);    
 }
-// if fp == 0 then read integer and if fp == 1 then read float

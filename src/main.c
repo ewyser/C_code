@@ -59,7 +59,7 @@ int main(){
         it++;
         if((it%25)==0){
             // display workload
-            printf("\n (%.2f %%); it = %d [-], t = %.2f [s]",100*tw/t,it, tw);
+            printf("\n (%.2f %%);\tit = %d [-],\tt = %.2f [s]",100*tw/t,it, tw);
         }
     } 
     

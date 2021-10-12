@@ -88,9 +88,9 @@ def mesh(nelx,lx,ly,lz0,ni,rho0,coh0,cohr,phi0,phir):
 	L    = np.array([lx,ly,lz])
 	h    = np.array([L[0]/nelx,L[0]/nelx,L[0]/nelx])
 
-	x    = np.arange(0.0-2.0*h[0], lx+2.0*h[0], h[0])
-	y    = np.arange(0.0-2.0*h[0], ly+2.0*h[0], h[0])
-	z    = np.arange(0.0-2.0*h[0], lz+2.0*h[0], h[0])
+	x    = np.arange(0.0-3.0*h[0], lx+3.0*h[0], h[0])
+	y    = np.arange(0.0-3.0*h[0], ly+3.0*h[0], h[0])
+	z    = np.arange(0.0-3.0*h[0], lz+3.0*h[0], h[0])
 
 	zv, xv, yv = np.meshgrid(z, x, y, sparse=False, indexing='ij')
 
@@ -110,7 +110,7 @@ def mesh(nelx,lx,ly,lz0,ni,rho0,coh0,cohr,phi0,phir):
 
 	e2n  = topol(nnx,nny,nnz,nelx,nely,nelz,nn)
 
-	xB   = [min(xn)+2*h[0],max(xn)-2*h[0],0.0,np.inf,min(yn)+2*h[0],max(yn)-2*h[0]]
+	xB   = [0.0,L[0],0.0,L[2],0.0,L[1]]
 	bcx  = np.hstack([np.where(xn<=xB[0]),np.where(xn>=xB[1])]).flatten('F')
 	bcy  = np.hstack([np.where(yn<=xB[4]),np.where(yn>=xB[5])]).flatten('F')
 	bcz  = np.array(np.where(zn<=xB[2])).flatten('F')					 
@@ -169,13 +169,15 @@ def mesh(nelx,lx,ly,lz0,ni,rho0,coh0,cohr,phi0,phir):
 	yp = np.array(yf)
 	zp = np.array(zf)
 	"""
+	block comment
+	"""
 	fig, ax = plt.subplots(figsize=(5,3), dpi=80)
 	plt.gca().set_aspect('equal', adjustable='box')
 	ax = plt.axes(projection='3d')
 	#ax.scatter3D(x, y, z, c=z, cmap='Blues');
 	ax.scatter3D(xp, yp, zp, c=zp, cmap='Reds');
 	plt.show()
-	"""
+	
 	nmp = xp.size
 	lp  = np.ones((nmp,3),dtype=float)*(h[0]/ni)/2
 	vp  = np.ones((nmp,1),dtype=float)*(h[0]/ni*h[0]/ni*h[0]/ni)

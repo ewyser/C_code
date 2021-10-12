@@ -5,11 +5,15 @@ int* loadInt(int size, char* filename){
         int *ptr=malloc(size*sizeof(int));
         FILE  *fid = fopen(filename, "r");
         if(fid==NULL){
-            printf("\n! %s not found -> program killed !\n",filename);
+            printf("\n importing: %s not found ...",filename);
+            printf("\n          |-> program killed");
             fclose(fid);
-            exit(-1);
+            printf("\n press any key to continue...");  
+            getchar();  
+            exit(1);
         }
         // read data from file & store value at &par
+        printf("\n importing: %s",filename);
         for(int i=0;i<size;i++){
             fscanf(fid,"%d" ,&ptr[i]);
         }
@@ -17,4 +21,3 @@ int* loadInt(int size, char* filename){
         fclose(fid);
         return(ptr);    
 }
-// if fp == 0 then read integer and if fp == 1 then read float
