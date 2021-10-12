@@ -5,7 +5,8 @@ import matplotlib.pyplot as plt
 def topol(nnx,nny,nnz,nelx,nely,nelz,nn):
 	nno = nnx*nny*nnz
 	nel = nelx*nely*nelz
-	gnumbers = (np.arange(0,nno,1,dtype=int)).reshape((nnz,nnx,nny),order='F')	
+	gnumbers = (np.arange(1,nno+1,1,dtype=int)).reshape((nnz,nnx,nny),order='F')	
+	print(np.amax(gnumbers))
 	for k in range(nny):
 		gnumbers[:,:,k]=np.flipud(gnumbers[:,:,k])
 	g_num  = np.zeros((nel,nn),dtype=int)
@@ -87,10 +88,10 @@ def mesh(nelx,lx,ly,lz0,ni,rho0,coh0,cohr,phi0,phir):
 	lz   = math.ceil(lz0)
 	L    = np.array([lx,ly,lz])
 	h    = np.array([L[0]/nelx,L[0]/nelx,L[0]/nelx])
+	x    = np.arange(0.0-2.0*h[0], lx+2.0*h[0]+0.01*h[0], h[0])
+	y    = np.arange(0.0-2.0*h[0], ly+2.0*h[0]+0.01*h[0], h[0])
+	z    = np.arange(0.0-2.0*h[0], lz+2.0*h[0]+0.01*h[0], h[0])
 
-	x    = np.arange(0.0-3.0*h[0], lx+3.0*h[0], h[0])
-	y    = np.arange(0.0-3.0*h[0], ly+3.0*h[0], h[0])
-	z    = np.arange(0.0-3.0*h[0], lz+3.0*h[0], h[0])
 
 	zv, xv, yv = np.meshgrid(z, x, y, sparse=False, indexing='ij')
 
@@ -197,7 +198,7 @@ def mesh(nelx,lx,ly,lz0,ni,rho0,coh0,cohr,phi0,phir):
 	# mesh-related quantities
 	np.savetxt("xn.txt"   , np.hstack([xn,yn,zn]).flatten('F')               , fmt="%f", delimiter="\n")
 	np.savetxt("bcs.txt"  , BC.flatten('F')                                  , fmt="%d", delimiter="\n")
-	np.savetxt("e2n.txt"  , e2n.flatten('F')                                 , fmt="%d", delimiter="\n")
+	np.savetxt("e2n.txt"  , e2n.flatten('F')-1                                 , fmt="%d", delimiter="\n")
 	# point-related quantities
 	np.savetxt("xp.txt"   , np.hstack([xp,yp,zp]).flatten('F')               , fmt="%f", delimiter="\n")
 	np.savetxt("lp.txt"   , np.hstack([lp[:,0],lp[:,1],lp[:,2]]).flatten('F'), fmt="%f", delimiter="\n")

@@ -27,7 +27,7 @@ t    = 15.0                                                        # simulation 
 te   = 8.0                                                         # elastic loading             [s]
 tg   = te/1.5   
 # mesh and point initialization
-nel  = 40   
+nel  = 80   
 lx   = 64.1584                                                     
 ly   = lx/4                                                        
 lz   = 12.80 
