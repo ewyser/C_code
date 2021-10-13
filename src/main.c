@@ -13,8 +13,8 @@ int main(){
     printf("\n|              ** ep23De v1.0 **              |");
     printf("\no---------------------------------------------o");
     #include "include/io.h"
-    point_t *mpD=(point_t *)malloc(sizeof(point_t));
-    mesh_t  *meD=(mesh_t  *)malloc(sizeof(point_t));
+    point_t *mpD = malloc(sizeof(point_t));
+    mesh_t  *meD = malloc(sizeof(mesh_t));
     init(meD,mpD);
     int nmp = mpD->nmp, 
          nn = meD->nn,
