@@ -1,5 +1,5 @@
 # Initialisation
-using Plots, Printf, Statistics, LinearAlgebra, LaTeXStrings, DelimitedFiles
+using Printf, LinearAlgebra, DelimitedFiles
 
 typeD = Float64  # Precision (double=Float64 or single=Float32)
 

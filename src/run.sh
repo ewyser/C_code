@@ -27,3 +27,4 @@ cd ${path}
 ./ep23De_cpu
 # display results calling python script
 python3 display.py
+#rm *.txt
