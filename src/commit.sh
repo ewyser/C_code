@@ -13,4 +13,4 @@ echo "Enter message for commit:"
 read commit_message
 git add -A
 git commit -m "${commit_message}: on ${DATE}"
-git push -u origin struct
+git push -u origin bspline
