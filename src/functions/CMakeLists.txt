@@ -7,6 +7,7 @@ add_library(functions 	accum.c
  			FLIP.c
  			getG.c
  			init.c
+			whichType.c
 			NdN.c
  			saveData.c
  			solve.c

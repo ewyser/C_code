@@ -1,16 +1,114 @@
 #include "math.h"
 #include "../include/NdN.h"
-void NdN(DAT *N_dN,DAT xi,DAT lp,DAT dx){
+void NdN(DAT *N_dN, DAT xi, int type){
     N_dN[0] = N_dN[1] = (DAT)0.0;
-    if( fabs(xi)< (   lp)                     ){N_dN[0]=1.0-(4.0*(xi*xi)+((2.0*lp)*(2.0*lp)))*((DAT)1.0/((DAT)8.0*dx*lp));
-                                                N_dN[1]=(-8.0*xi)*((DAT)1.0/((DAT)8.0*dx*lp));
+    if(type==1){
+        if((-2.0<=xi) && (xi<=-1.0)){
+            N_dN[0] = 1.0/6.0*xi*xi*xi+1.0*xi*xi+2.0*xi+4.0/3.0;
+            N_dN[1] = 3.0/6.0*xi*xi   +2.0*xi   +2.0           ;
+        }
+        else if((-1.0<=xi) && (xi<=0.0)){
+            N_dN[0] = -1.0/6.0*xi*xi*xi         +1.0*xi+1.0;
+            N_dN[1] = -3.0/6.0*xi*xi            +1.0       ;
+        }    
+        else if( (0.0<=xi) && (xi<=1.0)){
+            N_dN[0] =  1.0/6.0*xi*xi*xi         -1.0*xi+1.0;
+            N_dN[1] =  3.0/6.0*xi*xi            -1.0       ;
+        }
+        else if( (1.0<=xi) && (xi<=2.0)){
+            N_dN[0] = -1.0/6.0*xi*xi*xi+1.0*xi*xi-2.0*xi+4.0/3.0;
+            N_dN[1] = -3.0/6.0*xi*xi   +2.0*xi   -2.0           ;
+        }    
     }
-    if((fabs(xi)>=(   lp))&&(fabs(xi)<(dx-lp))){N_dN[0]=1.0-(fabs(xi)*((DAT)1.0/(DAT)dx));
-                                                if(xi<0.0){N_dN[1]=( (DAT)1.0/(DAT)dx);}
-                                                if(xi>0.0){N_dN[1]=(-(DAT)1.0/(DAT)dx);}
+
+
+
+
+
+
+
+
+
+
+
+
+    else if(type==2){
+        if((-1.0<=xi) && (xi<=0.0)){
+            N_dN[0] = -1.0/3.0*xi*xi*xi-1.0*xi*xi+2.0/3.0;
+            N_dN[1] = -3.0/3.0*xi*xi   -2.0*xi           ;
+        }
+        else if((0.0<=xi) && (xi<=1.0)){
+            N_dN[0] = 1.0/2.0*xi*xi*xi-1.0*xi*xi+2.0/3.0;
+            N_dN[1] = 3.0/2.0*xi*xi   -2.0*xi           ;
+        }
+        else if((1.0<=xi) && (xi<=2.0)){
+            N_dN[0] = -1.0/6.0*xi*xi*xi+1.0*xi*xi-2.0*xi+4.0/3.0;
+            N_dN[1] = -3.0/6.0*xi*xi   +2.0*xi   -2.0           ;
+        }    
     }
-    if((fabs(xi)>=(dx-lp))&&(fabs(xi)<(dx+lp))){N_dN[0]=((dx+lp-fabs(xi))*(dx+lp-fabs(xi)))*((DAT)1.0/((DAT)4.0*dx*lp));
-                                                if(xi<0.0){N_dN[1]=(  dx+lp-fabs(xi))*((DAT)1.0/((DAT)2.0*dx*lp)) ;}
-                                                if(xi>0.0){N_dN[1]=(-(dx+lp-fabs(xi))*((DAT)1.0/((DAT)2.0*dx*lp)));}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    else if(type==3){
+        if((-2.0<=xi) && (xi<=-1.0)){
+            N_dN[0] = 1.0/6.0*xi*xi*xi+1.0*xi*xi+2.0*xi+4.0/3.0;
+            N_dN[1] = 3.0/6.0*xi*xi   +2.0*xi   +2.0           ;
+        }
+        else if((-1.0<=xi) && (xi<=0.0)){
+            N_dN[0] = -1.0/2.0*xi*xi*xi-1.0*xi*xi+2.0/3.0;
+            N_dN[1] = -3.0/2.0*xi*xi   -2.0*xi           ;
+        }
+        else if( (0.0<=xi) && (xi<=1.0)){
+            N_dN[0] = 1.0/2.0*xi*xi*xi-1.0*xi*xi+2.0/3.0;
+            N_dN[1] = 3.0/2.0*xi*xi   -2.0*xi           ;
+        }            
+        else if( (1.0<=xi) && (xi<=2.0)){
+            N_dN[0] = -1.0/6.0*xi*xi*xi+1.0*xi*xi-2.0*xi+4.0/3.0;
+            N_dN[1] = -3.0/6.0*xi*xi   +2.0*xi   -2.0           ;            
+        }            
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    else if(type==4){
+            if((-2.0<=xi) && (xi<=-1.0)){
+            N_dN[0] = 1.0/6.0*xi*xi*xi+1.0*xi*xi+2.0*xi+4.0/3.0;
+            N_dN[1] = 3.0/6.0*xi*xi   +2.0*xi   +2.0           ;
+        }
+        else if((-1.0<=xi) && (xi<=0.0)){
+            N_dN[0] = -1.0/2.0*xi*xi*xi-1.0*xi*xi+2.0/3.0;
+            N_dN[1] = -3.0/2.0*xi*xi   -2.0*xi           ;
+        }
+        else if( (0.0<=xi) && (xi<=1.0)){
+            N_dN[0] = 1.0/3.0*xi*xi*xi-1.0*xi*xi+2.0/3.0;
+            N_dN[1] = 3.0/3.0*xi*xi   -2.0*xi           ;
+        }        
+    }
+    else{
+            N_dN[0] = 0.0;
+            N_dN[1] = 0.0;
     }
 }

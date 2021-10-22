@@ -1,0 +1,1 @@
+int whichType(DAT xn, DAT xmin, DAT xmax, DAT h);

@@ -1,22 +1,39 @@
 #include "math.h"
 #include "../include/type_t.h"
 #include "../include/basis.h"
+#include "../include/whichType.h"
 #include "../include/NdN.h"
 void basis(mesh_t *meD, point_t *mpD){
-    DAT Nx_dNx[2],Ny_dNy[2],Nz_dNz[2];
-    int iD;
+    DAT Nx_dNx[2],Ny_dNy[2],Nz_dNz[2],xmin,xmax;
+    int iD,type;
     int nmp = mpD->nmp, 
          nn = meD->nn, 
          no = meD->nno[3];
     for(int n=0;n<nn;n++){
         for(int p=0;p<nmp;p++){
             iD  = p+n*nmp;       
+            
             // x-basis and x-derivative
-            NdN(Nx_dNx,(mpD->xp[p+0*nmp]-meD->xn[mpD->p2n[iD]+0*no]),mpD->lp[p+0*nmp],meD->h[0]);
-            // y-basis and y-derivative   
-            NdN(Ny_dNy,(mpD->xp[p+1*nmp]-meD->xn[mpD->p2n[iD]+1*no]),mpD->lp[p+1*nmp],meD->h[1]);
-            // y-basis and y-derivative   
-            NdN(Nz_dNz,(mpD->xp[p+2*nmp]-meD->xn[mpD->p2n[iD]+2*no]),mpD->lp[p+2*nmp],meD->h[2]);
+            type = 0;
+            xmin = meD->min[0]+2.0*meD->h[0];
+            xmax = xmin + (meD->nel[0]-4)*meD->h[0];
+            type = whichType(meD->xn[mpD->p2n[iD]+0*no], xmin, xmax, meD->h[0]);
+            NdN(Nx_dNx,(mpD->xp[p+0*nmp]-meD->xn[mpD->p2n[iD]+0*no])*1.0/meD->h[0],type);
+            
+            // y-basis and y-derivative
+            type = 0;
+            xmin = meD->min[1]+2.0*meD->h[1];
+            xmax = xmin + (meD->nel[1]-4)*meD->h[1];
+            type = whichType(meD->xn[mpD->p2n[iD]+1*no], xmin, xmax, meD->h[1]);
+            NdN(Ny_dNy,(mpD->xp[p+1*nmp]-meD->xn[mpD->p2n[iD]+1*no])*1.0/meD->h[1],type);
+            
+            // z-basis and y-derivative
+            type = 0;
+            xmin = meD->min[2]+2.0*meD->h[2];
+            xmax = xmin + (meD->nel[2]-4)*meD->h[2];
+            type = whichType(meD->xn[mpD->p2n[iD]+2*no], xmin, xmax, meD->h[2]);   
+            NdN(Nz_dNz,(mpD->xp[p+2*nmp]-meD->xn[mpD->p2n[iD]+2*no])*1.0/meD->h[2],type);
+            
             // convolution of basis
             mpD->N[iD]   = Nx_dNx[0]*Ny_dNy[0]*Nz_dNz[0];
             mpD->dNx[iD] = Nx_dNx[1]*Ny_dNy[0]*Nz_dNz[0];

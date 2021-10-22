@@ -195,10 +195,24 @@ functions/CMakeFiles/functions.dir/init.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/functions.dir/init.c.s"
 	cd /Users/manuwyser/Dropbox/PhD_Thesis/git_local/work_mpm/C_code/build/functions && /usr/bin/gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/manuwyser/Dropbox/PhD_Thesis/git_local/work_mpm/C_code/src/functions/init.c -o CMakeFiles/functions.dir/init.c.s
 
+functions/CMakeFiles/functions.dir/whichType.c.o: functions/CMakeFiles/functions.dir/flags.make
+functions/CMakeFiles/functions.dir/whichType.c.o: /Users/manuwyser/Dropbox/PhD_Thesis/git_local/work_mpm/C_code/src/functions/whichType.c
+functions/CMakeFiles/functions.dir/whichType.c.o: functions/CMakeFiles/functions.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/manuwyser/Dropbox/PhD_Thesis/git_local/work_mpm/C_code/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building C object functions/CMakeFiles/functions.dir/whichType.c.o"
+	cd /Users/manuwyser/Dropbox/PhD_Thesis/git_local/work_mpm/C_code/build/functions && /usr/bin/gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT functions/CMakeFiles/functions.dir/whichType.c.o -MF CMakeFiles/functions.dir/whichType.c.o.d -o CMakeFiles/functions.dir/whichType.c.o -c /Users/manuwyser/Dropbox/PhD_Thesis/git_local/work_mpm/C_code/src/functions/whichType.c
+
+functions/CMakeFiles/functions.dir/whichType.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/functions.dir/whichType.c.i"
+	cd /Users/manuwyser/Dropbox/PhD_Thesis/git_local/work_mpm/C_code/build/functions && /usr/bin/gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/manuwyser/Dropbox/PhD_Thesis/git_local/work_mpm/C_code/src/functions/whichType.c > CMakeFiles/functions.dir/whichType.c.i
+
+functions/CMakeFiles/functions.dir/whichType.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/functions.dir/whichType.c.s"
+	cd /Users/manuwyser/Dropbox/PhD_Thesis/git_local/work_mpm/C_code/build/functions && /usr/bin/gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/manuwyser/Dropbox/PhD_Thesis/git_local/work_mpm/C_code/src/functions/whichType.c -o CMakeFiles/functions.dir/whichType.c.s
+
 functions/CMakeFiles/functions.dir/NdN.c.o: functions/CMakeFiles/functions.dir/flags.make
 functions/CMakeFiles/functions.dir/NdN.c.o: /Users/manuwyser/Dropbox/PhD_Thesis/git_local/work_mpm/C_code/src/functions/NdN.c
 functions/CMakeFiles/functions.dir/NdN.c.o: functions/CMakeFiles/functions.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/manuwyser/Dropbox/PhD_Thesis/git_local/work_mpm/C_code/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building C object functions/CMakeFiles/functions.dir/NdN.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/manuwyser/Dropbox/PhD_Thesis/git_local/work_mpm/C_code/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building C object functions/CMakeFiles/functions.dir/NdN.c.o"
 	cd /Users/manuwyser/Dropbox/PhD_Thesis/git_local/work_mpm/C_code/build/functions && /usr/bin/gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT functions/CMakeFiles/functions.dir/NdN.c.o -MF CMakeFiles/functions.dir/NdN.c.o.d -o CMakeFiles/functions.dir/NdN.c.o -c /Users/manuwyser/Dropbox/PhD_Thesis/git_local/work_mpm/C_code/src/functions/NdN.c
 
 functions/CMakeFiles/functions.dir/NdN.c.i: cmake_force
@@ -212,7 +226,7 @@ functions/CMakeFiles/functions.dir/NdN.c.s: cmake_force
 functions/CMakeFiles/functions.dir/saveData.c.o: functions/CMakeFiles/functions.dir/flags.make
 functions/CMakeFiles/functions.dir/saveData.c.o: /Users/manuwyser/Dropbox/PhD_Thesis/git_local/work_mpm/C_code/src/functions/saveData.c
 functions/CMakeFiles/functions.dir/saveData.c.o: functions/CMakeFiles/functions.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/manuwyser/Dropbox/PhD_Thesis/git_local/work_mpm/C_code/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building C object functions/CMakeFiles/functions.dir/saveData.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/manuwyser/Dropbox/PhD_Thesis/git_local/work_mpm/C_code/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building C object functions/CMakeFiles/functions.dir/saveData.c.o"
 	cd /Users/manuwyser/Dropbox/PhD_Thesis/git_local/work_mpm/C_code/build/functions && /usr/bin/gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT functions/CMakeFiles/functions.dir/saveData.c.o -MF CMakeFiles/functions.dir/saveData.c.o.d -o CMakeFiles/functions.dir/saveData.c.o -c /Users/manuwyser/Dropbox/PhD_Thesis/git_local/work_mpm/C_code/src/functions/saveData.c
 
 functions/CMakeFiles/functions.dir/saveData.c.i: cmake_force
@@ -226,7 +240,7 @@ functions/CMakeFiles/functions.dir/saveData.c.s: cmake_force
 functions/CMakeFiles/functions.dir/solve.c.o: functions/CMakeFiles/functions.dir/flags.make
 functions/CMakeFiles/functions.dir/solve.c.o: /Users/manuwyser/Dropbox/PhD_Thesis/git_local/work_mpm/C_code/src/functions/solve.c
 functions/CMakeFiles/functions.dir/solve.c.o: functions/CMakeFiles/functions.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/manuwyser/Dropbox/PhD_Thesis/git_local/work_mpm/C_code/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building C object functions/CMakeFiles/functions.dir/solve.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/manuwyser/Dropbox/PhD_Thesis/git_local/work_mpm/C_code/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building C object functions/CMakeFiles/functions.dir/solve.c.o"
 	cd /Users/manuwyser/Dropbox/PhD_Thesis/git_local/work_mpm/C_code/build/functions && /usr/bin/gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT functions/CMakeFiles/functions.dir/solve.c.o -MF CMakeFiles/functions.dir/solve.c.o.d -o CMakeFiles/functions.dir/solve.c.o -c /Users/manuwyser/Dropbox/PhD_Thesis/git_local/work_mpm/C_code/src/functions/solve.c
 
 functions/CMakeFiles/functions.dir/solve.c.i: cmake_force
@@ -240,7 +254,7 @@ functions/CMakeFiles/functions.dir/solve.c.s: cmake_force
 functions/CMakeFiles/functions.dir/strains.c.o: functions/CMakeFiles/functions.dir/flags.make
 functions/CMakeFiles/functions.dir/strains.c.o: /Users/manuwyser/Dropbox/PhD_Thesis/git_local/work_mpm/C_code/src/functions/strains.c
 functions/CMakeFiles/functions.dir/strains.c.o: functions/CMakeFiles/functions.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/manuwyser/Dropbox/PhD_Thesis/git_local/work_mpm/C_code/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building C object functions/CMakeFiles/functions.dir/strains.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/manuwyser/Dropbox/PhD_Thesis/git_local/work_mpm/C_code/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building C object functions/CMakeFiles/functions.dir/strains.c.o"
 	cd /Users/manuwyser/Dropbox/PhD_Thesis/git_local/work_mpm/C_code/build/functions && /usr/bin/gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT functions/CMakeFiles/functions.dir/strains.c.o -MF CMakeFiles/functions.dir/strains.c.o.d -o CMakeFiles/functions.dir/strains.c.o -c /Users/manuwyser/Dropbox/PhD_Thesis/git_local/work_mpm/C_code/src/functions/strains.c
 
 functions/CMakeFiles/functions.dir/strains.c.i: cmake_force
@@ -254,7 +268,7 @@ functions/CMakeFiles/functions.dir/strains.c.s: cmake_force
 functions/CMakeFiles/functions.dir/topol.c.o: functions/CMakeFiles/functions.dir/flags.make
 functions/CMakeFiles/functions.dir/topol.c.o: /Users/manuwyser/Dropbox/PhD_Thesis/git_local/work_mpm/C_code/src/functions/topol.c
 functions/CMakeFiles/functions.dir/topol.c.o: functions/CMakeFiles/functions.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/manuwyser/Dropbox/PhD_Thesis/git_local/work_mpm/C_code/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building C object functions/CMakeFiles/functions.dir/topol.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/manuwyser/Dropbox/PhD_Thesis/git_local/work_mpm/C_code/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building C object functions/CMakeFiles/functions.dir/topol.c.o"
 	cd /Users/manuwyser/Dropbox/PhD_Thesis/git_local/work_mpm/C_code/build/functions && /usr/bin/gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT functions/CMakeFiles/functions.dir/topol.c.o -MF CMakeFiles/functions.dir/topol.c.o.d -o CMakeFiles/functions.dir/topol.c.o -c /Users/manuwyser/Dropbox/PhD_Thesis/git_local/work_mpm/C_code/src/functions/topol.c
 
 functions/CMakeFiles/functions.dir/topol.c.i: cmake_force
@@ -268,7 +282,7 @@ functions/CMakeFiles/functions.dir/topol.c.s: cmake_force
 functions/CMakeFiles/functions.dir/volLock.c.o: functions/CMakeFiles/functions.dir/flags.make
 functions/CMakeFiles/functions.dir/volLock.c.o: /Users/manuwyser/Dropbox/PhD_Thesis/git_local/work_mpm/C_code/src/functions/volLock.c
 functions/CMakeFiles/functions.dir/volLock.c.o: functions/CMakeFiles/functions.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/manuwyser/Dropbox/PhD_Thesis/git_local/work_mpm/C_code/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building C object functions/CMakeFiles/functions.dir/volLock.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/manuwyser/Dropbox/PhD_Thesis/git_local/work_mpm/C_code/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building C object functions/CMakeFiles/functions.dir/volLock.c.o"
 	cd /Users/manuwyser/Dropbox/PhD_Thesis/git_local/work_mpm/C_code/build/functions && /usr/bin/gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT functions/CMakeFiles/functions.dir/volLock.c.o -MF CMakeFiles/functions.dir/volLock.c.o.d -o CMakeFiles/functions.dir/volLock.c.o -c /Users/manuwyser/Dropbox/PhD_Thesis/git_local/work_mpm/C_code/src/functions/volLock.c
 
 functions/CMakeFiles/functions.dir/volLock.c.i: cmake_force
@@ -282,7 +296,7 @@ functions/CMakeFiles/functions.dir/volLock.c.s: cmake_force
 functions/CMakeFiles/functions.dir/loadInt.c.o: functions/CMakeFiles/functions.dir/flags.make
 functions/CMakeFiles/functions.dir/loadInt.c.o: /Users/manuwyser/Dropbox/PhD_Thesis/git_local/work_mpm/C_code/src/functions/loadInt.c
 functions/CMakeFiles/functions.dir/loadInt.c.o: functions/CMakeFiles/functions.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/manuwyser/Dropbox/PhD_Thesis/git_local/work_mpm/C_code/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building C object functions/CMakeFiles/functions.dir/loadInt.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/manuwyser/Dropbox/PhD_Thesis/git_local/work_mpm/C_code/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building C object functions/CMakeFiles/functions.dir/loadInt.c.o"
 	cd /Users/manuwyser/Dropbox/PhD_Thesis/git_local/work_mpm/C_code/build/functions && /usr/bin/gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT functions/CMakeFiles/functions.dir/loadInt.c.o -MF CMakeFiles/functions.dir/loadInt.c.o.d -o CMakeFiles/functions.dir/loadInt.c.o -c /Users/manuwyser/Dropbox/PhD_Thesis/git_local/work_mpm/C_code/src/functions/loadInt.c
 
 functions/CMakeFiles/functions.dir/loadInt.c.i: cmake_force
@@ -296,7 +310,7 @@ functions/CMakeFiles/functions.dir/loadInt.c.s: cmake_force
 functions/CMakeFiles/functions.dir/loadFloat.c.o: functions/CMakeFiles/functions.dir/flags.make
 functions/CMakeFiles/functions.dir/loadFloat.c.o: /Users/manuwyser/Dropbox/PhD_Thesis/git_local/work_mpm/C_code/src/functions/loadFloat.c
 functions/CMakeFiles/functions.dir/loadFloat.c.o: functions/CMakeFiles/functions.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/manuwyser/Dropbox/PhD_Thesis/git_local/work_mpm/C_code/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building C object functions/CMakeFiles/functions.dir/loadFloat.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/manuwyser/Dropbox/PhD_Thesis/git_local/work_mpm/C_code/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Building C object functions/CMakeFiles/functions.dir/loadFloat.c.o"
 	cd /Users/manuwyser/Dropbox/PhD_Thesis/git_local/work_mpm/C_code/build/functions && /usr/bin/gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT functions/CMakeFiles/functions.dir/loadFloat.c.o -MF CMakeFiles/functions.dir/loadFloat.c.o.d -o CMakeFiles/functions.dir/loadFloat.c.o -c /Users/manuwyser/Dropbox/PhD_Thesis/git_local/work_mpm/C_code/src/functions/loadFloat.c
 
 functions/CMakeFiles/functions.dir/loadFloat.c.i: cmake_force
@@ -318,6 +332,7 @@ functions_OBJECTS = \
 "CMakeFiles/functions.dir/FLIP.c.o" \
 "CMakeFiles/functions.dir/getG.c.o" \
 "CMakeFiles/functions.dir/init.c.o" \
+"CMakeFiles/functions.dir/whichType.c.o" \
 "CMakeFiles/functions.dir/NdN.c.o" \
 "CMakeFiles/functions.dir/saveData.c.o" \
 "CMakeFiles/functions.dir/solve.c.o" \
@@ -339,6 +354,7 @@ functions/libfunctions.a: functions/CMakeFiles/functions.dir/elast.c.o
 functions/libfunctions.a: functions/CMakeFiles/functions.dir/FLIP.c.o
 functions/libfunctions.a: functions/CMakeFiles/functions.dir/getG.c.o
 functions/libfunctions.a: functions/CMakeFiles/functions.dir/init.c.o
+functions/libfunctions.a: functions/CMakeFiles/functions.dir/whichType.c.o
 functions/libfunctions.a: functions/CMakeFiles/functions.dir/NdN.c.o
 functions/libfunctions.a: functions/CMakeFiles/functions.dir/saveData.c.o
 functions/libfunctions.a: functions/CMakeFiles/functions.dir/solve.c.o
@@ -349,7 +365,7 @@ functions/libfunctions.a: functions/CMakeFiles/functions.dir/loadInt.c.o
 functions/libfunctions.a: functions/CMakeFiles/functions.dir/loadFloat.c.o
 functions/libfunctions.a: functions/CMakeFiles/functions.dir/build.make
 functions/libfunctions.a: functions/CMakeFiles/functions.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/manuwyser/Dropbox/PhD_Thesis/git_local/work_mpm/C_code/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Linking C static library libfunctions.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/manuwyser/Dropbox/PhD_Thesis/git_local/work_mpm/C_code/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Linking C static library libfunctions.a"
 	cd /Users/manuwyser/Dropbox/PhD_Thesis/git_local/work_mpm/C_code/build/functions && $(CMAKE_COMMAND) -P CMakeFiles/functions.dir/cmake_clean_target.cmake
 	cd /Users/manuwyser/Dropbox/PhD_Thesis/git_local/work_mpm/C_code/build/functions && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/functions.dir/link.txt --verbose=$(VERBOSE)
 

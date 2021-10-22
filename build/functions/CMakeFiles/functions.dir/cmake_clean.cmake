@@ -33,6 +33,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/functions.dir/topol.c.o.d"
   "CMakeFiles/functions.dir/volLock.c.o"
   "CMakeFiles/functions.dir/volLock.c.o.d"
+  "CMakeFiles/functions.dir/whichType.c.o"
+  "CMakeFiles/functions.dir/whichType.c.o.d"
   "libfunctions.a"
   "libfunctions.pdb"
 )

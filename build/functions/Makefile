@@ -538,6 +538,30 @@ volLock.c.s:
 	cd /Users/manuwyser/Dropbox/PhD_Thesis/git_local/work_mpm/C_code/build && $(MAKE) $(MAKESILENT) -f functions/CMakeFiles/functions.dir/build.make functions/CMakeFiles/functions.dir/volLock.c.s
 .PHONY : volLock.c.s
 
+whichType.o: whichType.c.o
+.PHONY : whichType.o
+
+# target to build an object file
+whichType.c.o:
+	cd /Users/manuwyser/Dropbox/PhD_Thesis/git_local/work_mpm/C_code/build && $(MAKE) $(MAKESILENT) -f functions/CMakeFiles/functions.dir/build.make functions/CMakeFiles/functions.dir/whichType.c.o
+.PHONY : whichType.c.o
+
+whichType.i: whichType.c.i
+.PHONY : whichType.i
+
+# target to preprocess a source file
+whichType.c.i:
+	cd /Users/manuwyser/Dropbox/PhD_Thesis/git_local/work_mpm/C_code/build && $(MAKE) $(MAKESILENT) -f functions/CMakeFiles/functions.dir/build.make functions/CMakeFiles/functions.dir/whichType.c.i
+.PHONY : whichType.c.i
+
+whichType.s: whichType.c.s
+.PHONY : whichType.s
+
+# target to generate assembly for a file
+whichType.c.s:
+	cd /Users/manuwyser/Dropbox/PhD_Thesis/git_local/work_mpm/C_code/build && $(MAKE) $(MAKESILENT) -f functions/CMakeFiles/functions.dir/build.make functions/CMakeFiles/functions.dir/whichType.c.s
+.PHONY : whichType.c.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -598,6 +622,9 @@ help:
 	@echo "... volLock.o"
 	@echo "... volLock.i"
 	@echo "... volLock.s"
+	@echo "... whichType.o"
+	@echo "... whichType.i"
+	@echo "... whichType.s"
 .PHONY : help
 
 

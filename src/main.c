@@ -53,7 +53,6 @@ int main(){
         if(tw>te){
             DPPlast(mpD,Hp,cohr,Kc,Gc,psi0);
         }
-        volLock(meD,mpD);
         // update time & iteration
         tw+=dt;
         it++;
