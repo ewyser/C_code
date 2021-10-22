@@ -35,6 +35,7 @@ typedef struct mesh{
         DAT *pel   ;
         int *e2n   ;
         DAT  h[3]  ; //[dx,dy,dz]
+        DAT  xB[6] ;
     // nodes-related
         int  nno[4]; //[nnx ,nny ,nnz ,no]
         int  nel[4]; //[nelx,nely,nelz,no]

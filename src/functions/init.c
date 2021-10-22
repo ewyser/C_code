@@ -10,8 +10,8 @@
 
 void init(mesh_t *meD,point_t *mpD){
     // mesh & material point geometric properties
-        DAT *par   = malloc(12*sizeof(DAT));
-        par        = loadFloat(12,"param.txt");
+        DAT *par   = malloc(18*sizeof(DAT));
+        par        = loadFloat(18,"param.txt");
         mpD->nmp   = (int) par[0 ];
         meD->nn    = (int) par[1 ];
         meD->nno[3]= (int) par[2 ];
@@ -24,6 +24,14 @@ void init(mesh_t *meD,point_t *mpD){
         meD->nno[0]= (int) par[9 ];
         meD->nno[1]= (int) par[10];
         meD->nno[2]= (int) par[11];
+
+        meD->xB[0]= (DAT) par[12];
+        meD->xB[1]= (DAT) par[13];
+        meD->xB[2]= (DAT) par[14];
+        meD->xB[3]= (DAT) par[15];
+        meD->xB[4]= (DAT) par[16];
+        meD->xB[5]= (DAT) par[13];
+
         meD->nno[3]= meD->nno[0]*meD->nno[1]*meD->nno[2];
         meD->nel[0]= meD->nno[0]-1;
         meD->nel[1]= meD->nno[1]-1;

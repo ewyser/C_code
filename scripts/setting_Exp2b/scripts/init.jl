@@ -33,7 +33,7 @@ include("../src/types.jl")
     H       = -60.0e3                                                       # softening modulus           [Pa]
     cr      =   4.0e3                                                      # residual cohesion           [Pa]
     ϕr      = 7.0*pi/180                                                  # residual friction angle     [Rad]
-    t       = 10.0                                                        # simulation time             [s]
+    t       = 15.0                                                        # simulation time             [s]
     te      = 10.0                                                         # elastic loading             [s]
     tg      = te/1.5                                                      # gravity increase 
 	# ---------------------------------------------------------------------------

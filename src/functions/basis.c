@@ -15,24 +15,24 @@ void basis(mesh_t *meD, point_t *mpD){
             
             // x-basis and x-derivative
             type = 0;
-            xmin = meD->min[0]+2.0*meD->h[0];
-            xmax = xmin + (meD->nel[0]-4)*meD->h[0];
+            xmin = meD->xB[0];
+            xmax = meD->xB[1];
             type = whichType(meD->xn[mpD->p2n[iD]+0*no], xmin, xmax, meD->h[0]);
-            NdN(Nx_dNx,(mpD->xp[p+0*nmp]-meD->xn[mpD->p2n[iD]+0*no])*1.0/meD->h[0],type);
+            NdN(Nx_dNx,(mpD->xp[p+0*nmp]-meD->xn[mpD->p2n[iD]+0*no])*(DAT)1.0/(DAT)meD->h[0],type);
             
             // y-basis and y-derivative
             type = 0;
-            xmin = meD->min[1]+2.0*meD->h[1];
-            xmax = xmin + (meD->nel[1]-4)*meD->h[1];
+            xmin = meD->xB[2];
+            xmax = meD->xB[3];
             type = whichType(meD->xn[mpD->p2n[iD]+1*no], xmin, xmax, meD->h[1]);
-            NdN(Ny_dNy,(mpD->xp[p+1*nmp]-meD->xn[mpD->p2n[iD]+1*no])*1.0/meD->h[1],type);
+            NdN(Ny_dNy,(mpD->xp[p+1*nmp]-meD->xn[mpD->p2n[iD]+1*no])*(DAT)1.0/(DAT)meD->h[1],type);
             
             // z-basis and y-derivative
             type = 0;
-            xmin = meD->min[2]+2.0*meD->h[2];
-            xmax = xmin + (meD->nel[2]-4)*meD->h[2];
+            xmin = meD->xB[4];
+            xmax = meD->xB[5];
             type = whichType(meD->xn[mpD->p2n[iD]+2*no], xmin, xmax, meD->h[2]);   
-            NdN(Nz_dNz,(mpD->xp[p+2*nmp]-meD->xn[mpD->p2n[iD]+2*no])*1.0/meD->h[2],type);
+            NdN(Nz_dNz,(mpD->xp[p+2*nmp]-meD->xn[mpD->p2n[iD]+2*no])*(DAT)1.0/(DAT)meD->h[2],type);
             
             // convolution of basis
             mpD->N[iD]   = Nx_dNx[0]*Ny_dNy[0]*Nz_dNz[0];

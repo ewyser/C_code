@@ -225,7 +225,7 @@ function save2txt(meD,mpD,bc)
     writedlm("cohp.txt",vec(mpD.coh))
     writedlm("phip.txt",vec(mpD.phi))
 
-    p = [mpD.nmp meD.nn meD.nno[4] meD.h[1] meD.h[2] meD.h[3] minimum(meD.xn) minimum(meD.yn) minimum(meD.zn) meD.nno[1] meD.nno[2] meD.nno[3]]
+    p = [mpD.nmp meD.nn meD.nno[4] meD.h[1] meD.h[2] meD.h[3] minimum(meD.xn) minimum(meD.yn) minimum(meD.zn) meD.nno[1] meD.nno[2] meD.nno[3] meD.xB']
     writedlm("param.txt",vec(p))    
 
     writedlm("mp.txt" ,vec(mpD.m) )    
